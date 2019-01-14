@@ -1,0 +1,9 @@
+.select-div{
+    height:50px;
+    width: 50%;
+    margin-bottom: 30px;
+}
+.select-div select{
+    float: left;
+    width:20%;
+}
