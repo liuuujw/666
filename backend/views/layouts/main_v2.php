@@ -54,7 +54,7 @@ AppAsset::register($this);
             <li>
                 <a class="dropdown-button waves-effect waves-dark" href="javascript:;" data-activates="dropdown1">
                     <i class="fa fa-user fa-fw"></i>
-                    <b><?= (isset($this->context->user) && $this->context->user) ? $this->context->user['user_name'] : '';?></b>
+                    <b><?= (isset($this->context->user) && $this->context->user) ? $this->context->user['user_name'] : ''; ?></b>
                     <i class="material-icons right">arrow_drop_down</i>
                 </a>
             </li>
@@ -62,7 +62,9 @@ AppAsset::register($this);
     </nav>
     <!-- Dropdown Structure -->
     <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#" id="<?= (isset($this->context->user) && $this->context->user) ? $this->context->user['id'] : ''; ?>"><i class="fa fa-user fa-fw"></i> My Profile</a>
+        <li><a href="#"
+               id="<?= (isset($this->context->user) && $this->context->user) ? $this->context->user['id'] : ''; ?>"><i
+                        class="fa fa-user fa-fw"></i> My Profile</a>
         </li>
         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
         </li>
@@ -72,7 +74,8 @@ AppAsset::register($this);
     <!--/. NAV TOP  -->
     <nav class="navbar-default navbar-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
+            <ul class="nav" id="main-menu"
+                style="max-height: 600px; width: 100%; overflow-y: auto; list-style: none; padding-right: 15px;">
                 <?php
                 if (isset($this->context->menu) && $this->context->menu) {
                     foreach ($this->context->menu as $menu) {
