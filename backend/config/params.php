@@ -3,6 +3,9 @@ return [
     'adminEmail' => 'admin@example.com',
     'menu_list' => [
         ['name' => '主页', 'url' => '/index', 'icon' => 'glyphicon glyphicon-home'],
+        ['name' => '账号管理', 'url' => '/role', 'icon' => '', 'item' => [
+            ['name' => '角色', 'url' => '/role/add']
+        ]],
         ['name' => '购书中心管理', 'url' => '/bookcenter', 'icon' => 'glyphicon glyphicon-align-center'],
         ['name' => '部门管理', 'url' => '/department', 'icon' => 'glyphicon glyphicon-menu-hamburger'],
         ['name' => '员工管理', 'url' => '/staff', 'icon' => 'glyphicon glyphicon-user'],
@@ -12,16 +15,16 @@ return [
         ['name' => '仓库管理', 'url' => '/warehouse', 'icon' => 'fa fa-truck'],
         ['name' => '销售记录', 'url' => '/sale', 'icon' => 'glyphicon glyphicon-list-alt'],
         ['name' => '工资管理', 'url' => '/wages', 'icon' => 'glyphicon glyphicon-yen'],
-        ['name' => '报表', 'url'=>'','icon' => 'glyphicon glyphicon-stats','item'=>[
-            ['name'=>'月利润报表','url'=>'/charts/profit'],
-            ['name'=>'销售报表','url'=>'/charts/sold'],
-            ['name'=>'工资报表','url'=>'/charts/wages'],
-            ['name'=>'进货报表','url'=>'/charts/purchase'],
-            ['name'=>'运营报表','url'=>'/charts/operate'],
-            ['name'=>'仓库存储报表','url'=>'/charts/warehouse'],
+        ['name' => '报表', 'url' => '/charts', 'icon' => 'glyphicon glyphicon-stats', 'item' => [
+            ['name' => '月利润报表', 'url' => '/charts/profit'],
+            ['name' => '销售报表', 'url' => '/charts/sold'],
+            ['name' => '工资报表', 'url' => '/charts/wages'],
+            ['name' => '进货报表', 'url' => '/charts/purchase'],
+            ['name' => '运营报表', 'url' => '/charts/operate'],
+            ['name' => '仓库存储报表', 'url' => '/charts/warehouse'],
         ]],
     ],
-    'department'=>array(
+    'department' => array(
         '行政部',
         '财务部',
         '质量管理部',

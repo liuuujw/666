@@ -129,13 +129,10 @@ class SiteController extends Controller
         return $this->render('register', ['model' => $model]);
     }
 
-    public function actionTest(){
-        echo $this->test();
-    }
+    public function actionNew(){
 
-    public function test(){
-        $str = 'http://weixin-10013420.file.myqcloud.com/propertyPicture/ImageMaterial/HYHJ009021/12389/d645483c68989ccba866de512b25b873.jpg';
-        return str_replace('file','picsh',$str);
+        $this->layout = 'layui';
+        return $this->render('layui');
     }
 
 
