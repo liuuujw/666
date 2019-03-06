@@ -11,10 +11,8 @@ use yii\db\Connection;
 class IndexController extends BaseController
 {
 
-    public $layout = 'main_v2';
 
     public function actionIndex(){
-
         return $this->render('table');
 
     }

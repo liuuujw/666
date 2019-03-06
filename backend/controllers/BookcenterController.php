@@ -11,7 +11,6 @@ use common\models\Common;
 class BookcenterController extends BaseController
 {
 
-    public $layout = 'main_v2';
     public $m_name = '购书中心管理';
 
     public function actionIndex()

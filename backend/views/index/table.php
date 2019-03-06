@@ -12,7 +12,6 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-
             <div class="card-content">
                 <div id="total_wages" style="width: 100%;height:300px;"></div>
             </div>

@@ -12,7 +12,7 @@ class BaseController extends Controller
 
     public function beforeAction($action)
     {
-        Yii::$app->view->params['m_name'] = '主页';
+        $this->getModelName();
         $this->menu = Yii::$app->params['menu_list'];
         $this->user = Yii::$app->session->get('userInfo') ? Yii::$app->session->get('userInfo') : [];
         if($this->user == [] || (time() - $this->user['expire'] >= 3600*24)){
@@ -49,7 +49,7 @@ class BaseController extends Controller
 
     }
 
-    public function getModelName($m_name, $c_name='列表')
+    public function getModelName($m_name='主页', $c_name='列表')
     {
         $view = Yii::$app->view;
         $view->params['m_name'] = $m_name;

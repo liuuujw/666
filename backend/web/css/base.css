@@ -1,10 +1,16 @@
-.text-c{
-    text-align: center;
-}
-table tr th{
+.layui-table {
     text-align: center;
 }
 
-table tr td{
+.layui-table th {
     text-align: center;
+}
+
+.breadcrumb {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.layui-breadcrumb > * {
+    font-size: 16px;
 }

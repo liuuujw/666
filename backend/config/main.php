@@ -48,6 +48,6 @@ return [
     ],
     'params' => $params,
     'defaultRoute' => 'index/index',        //默认路由
-    'layout' => 'main_v2',                  //默认layout
+    'layout' => 'layui',                  //默认layout
 
 ];

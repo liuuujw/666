@@ -15,4 +15,9 @@ class RoleController extends BaseController{
 
         return $this->render('layui');
     }
+
+    public function actionTable(){
+
+        return $this->render('table');
+    }
 }

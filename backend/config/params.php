@@ -4,7 +4,8 @@ return [
     'menu_list' => [
         ['name' => '主页', 'url' => '/index', 'icon' => 'glyphicon glyphicon-home'],
         ['name' => '账号管理', 'url' => '/role', 'icon' => '', 'item' => [
-            ['name' => '角色', 'url' => '/role/add']
+            ['name' => '表单', 'url' => '/role/add'],
+            ['name' => '表格', 'url' => '/role/table'],
         ]],
         ['name' => '购书中心管理', 'url' => '/bookcenter', 'icon' => 'glyphicon glyphicon-align-center'],
         ['name' => '部门管理', 'url' => '/department', 'icon' => 'glyphicon glyphicon-menu-hamburger'],

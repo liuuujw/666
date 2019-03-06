@@ -14,6 +14,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>layout 后台大布局</title>
     <link rel="stylesheet" href="/css/layui.css">
+    <link rel="stylesheet" href="/css/base.css">
 </head>
 <body class="layui-layout-body">
 <?php $this->beginBody() ?>
