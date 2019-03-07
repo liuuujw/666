@@ -10,7 +10,6 @@ use backend\controllers\BaseController;
 class BookController extends BaseController
 {
 
-    public $layout = 'main_v2';
     public $m_name = '书籍管理';
 
     public function actionIndex()

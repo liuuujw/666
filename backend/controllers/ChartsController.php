@@ -7,7 +7,6 @@ use backend\models\Charts;
 class ChartsController extends BaseController
 {
 
-    public $layout = 'main_v2';
     public $m_name = '报表';
     public $start_year = 2013;
 

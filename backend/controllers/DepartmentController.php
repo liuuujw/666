@@ -12,7 +12,6 @@ use backend\models\BookCenter;
 class DepartmentController extends BaseController
 {
 
-    public $layout = 'main_v2';
 
     public function actionIndex()
     {

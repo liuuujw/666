@@ -1,9 +1,8 @@
 <?php
 $this->registerCssFile('/css/admin/charts-public.css');
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
+<div class="layui-row">
+    <div class="layui-md-12">
             <div class="card-content">
                 <div class="select-div">
                     <select id="year" title="年" class="browser-default">
@@ -31,7 +30,6 @@ $this->registerCssFile('/css/admin/charts-public.css');
                 </div>
                 <div id="operate_total" style="width: 100%;height:500px;"></div>
             </div>
-        </div>
     </div>
 </div>
 

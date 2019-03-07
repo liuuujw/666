@@ -1,6 +1,7 @@
 <?php
 
 use backend\assets\AppAsset;
+use yii\helpers\Html;
 
 AppAsset::register($this);
 
@@ -12,9 +13,14 @@ AppAsset::register($this);
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>layout 后台大布局</title>
-    <link rel="stylesheet" href="/css/layui.css">
-    <link rel="stylesheet" href="/css/base.css">
+
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+
+
+<!--    <link rel="stylesheet" href="/css/layui.css">-->
+<!--    <link rel="stylesheet" href="/css/base.css">-->
+    <?= $this->head() ?>
 </head>
 <body class="layui-layout-body">
 <?php $this->beginBody() ?>
@@ -23,7 +29,7 @@ AppAsset::register($this);
     <div class="layui-header">
         <div class="layui-logo">layui 后台布局</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
+        <!--<ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
             <li class="layui-nav-item"><a href="">商品管理</a></li>
             <li class="layui-nav-item"><a href="">用户</a></li>
@@ -35,12 +41,12 @@ AppAsset::register($this);
                     <dd><a href="">授权管理</a></dd>
                 </dl>
             </li>
-        </ul>
+        </ul>-->
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    <?= (isset($this->context->user['name'])) ? $this->context->user['name'] : '' ?>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="">基本资料</a></dd>
@@ -59,7 +65,7 @@ AppAsset::register($this);
                 $url = \Yii::$app->request->getPathInfo();
                 foreach ($this->context->menu as $menu) {
                     ?>
-                    <li class="layui-nav-item <?= $menu['name']==$this->context->m_name ? 'layui-nav-itemed' :'' ?> <?= (!isset($menu['item']) && $menu['url']=='/'.$url) ? 'layui-this' : '' ?>">
+                    <li class="layui-nav-item <?= $menu['name'] == $this->params['m_name'] ? 'layui-nav-itemed' : '' ?> <?= (!isset($menu['item']) && $menu['url'] == '/' . $url) ? 'layui-this' : '' ?>">
                         <a href="<?= isset($menu['item']) ? 'javascript:;' : $menu['url'] ?>" class="">
                             <?= $menu['name'] ?>
                         </a>
@@ -67,8 +73,8 @@ AppAsset::register($this);
                         if (isset($menu['item']) && $menu['item']) {
                             $html = '<dl class="layui-nav-child">';
                             foreach ($menu['item'] as $child) {
-                                $selected = ($child['url'] == '/'.\Yii::$app->request->getPathInfo()) ? ' class="layui-this"' : '';
-                                $html .= '<dd'.$selected.'><a href="' . $child['url'] . '">' . $child['name'] . '</a></dd>';
+                                $selected = ($child['url'] == '/' . \Yii::$app->request->getPathInfo()) ? ' class="layui-this"' : '';
+                                $html .= '<dd' . $selected . '><a href="' . $child['url'] . '">' . $child['name'] . '</a></dd>';
                             }
                             $html .= '<dl class="layui-nav-child">';
                             echo $html;
@@ -88,6 +94,14 @@ AppAsset::register($this);
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div style="padding: 15px;">
+            <div class="layui-row breadcrumb">
+                <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
+                    <span class="layui-breadcrumb">
+                        <?= isset($this->params['m_name']) ? "<a>" . $this->params['m_name'] . "</a>" : '' ?>
+                        <?= isset($this->params['c_name']) ? "<a>" . $this->params['c_name'] . "</a>" : '' ?>
+                    </span>
+                </div>
+            </div>
             <?= $content ?>
         </div>
     </div>

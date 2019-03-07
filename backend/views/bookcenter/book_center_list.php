@@ -1,6 +1,4 @@
-<?php
-echo $this->context->renderPartial('//common/breadcrumd.php');
-?>
+
 <div class="layui-row">
     <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
         <a href="/bookcenter/add">
