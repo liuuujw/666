@@ -1,8 +1,7 @@
 <div class="layui-row">
     <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
-        <a href="/bookcenter/add">
-            <button class="layui-btn layui-btn-radius">添加</button>
-        </a>
+            <button id="add_btn" class="layui-btn layui-btn-radius">添加</button>
+            <button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">居中弹出</button>
     </div>
 </div>
 
