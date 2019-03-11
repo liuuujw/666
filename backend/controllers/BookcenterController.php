@@ -17,8 +17,8 @@ class BookcenterController extends BaseController
     {
 
         $this->getModelName($this->m_name, '列表');
-        $model = new BookCenter();
-        $data = $model->getList();
+//        $model = new BookCenter();
+//        $data = $model->getList();
 
         /*if (!$data) {
             $common = new Common();
@@ -34,8 +34,16 @@ class BookcenterController extends BaseController
                 $data[] = $one;
             }
         }*/
-        return $this->render('book_center_list', ['data' => $data]);
+        return $this->render('book_center_list');
 
+    }
+
+    public function actionGetdata(){
+        $page = Yii::$app->request->get('page') ? Yii::$app->request->get('page') : 1;
+        $limit = Yii::$app->request->get('limit') ? Yii::$app->request->get('limit') : Yii::$app->params['defaultLimit'];
+        $model = new BookCenter();
+        $data = $model->getList($page,$limit);
+        return $data;
     }
 
     public function actionAdd()

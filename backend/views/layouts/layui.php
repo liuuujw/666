@@ -108,7 +108,7 @@ AppAsset::register($this);
 
     <div class="layui-footer"></div>
 </div>
-<script src="/js/layui.js"></script>
+<script src="/js/layui.all.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function () {

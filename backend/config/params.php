@@ -1,5 +1,6 @@
 <?php
 return [
+    'defaultLimit'=>20,
     'adminEmail' => 'admin@example.com',
     'menu_list' => [
         ['name' => '主页', 'url' => '/index', 'icon' => 'glyphicon glyphicon-home'],

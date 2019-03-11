@@ -2,6 +2,7 @@ a:link {
     text-decoration: none;
 }
 
+
 .layui-table {
     text-align: center;
 }
@@ -17,4 +18,8 @@ a:link {
 
 .layui-breadcrumb > * {
     font-size: 16px;
+}
+
+.layui-table-cell{
+    text-align: center;
 }

@@ -1,4 +1,3 @@
-
 <div class="layui-row">
     <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
         <a href="/bookcenter/add">
@@ -7,7 +6,7 @@
     </div>
 </div>
 
-<table class="layui-table">
+<!--<table class="layui-table">
     <colgroup>
         <col width="50">
         <col width="150">
@@ -28,20 +27,32 @@
     </tr>
     </thead>
     <?php
-    foreach ($data as $val) {
-        ?>
-        <tr>
-            <td><?= $val['id']; ?></td>
-            <td><?= $val['name']; ?></td>
-            <td><?= $val['code']; ?></td>
-            <td><?= $val['manager']; ?></td>
-            <td>￥<?= $val['cost']; ?></td>
-            <td>
-                <button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">编辑</button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius">删除</button>
-            </td>
-        </tr>
-        <?php
+/*    if (isset($data) && $data) {
+        foreach ($data as $val) {
+            */?>
+            <tr>
+                <td><?/*= $val['id']; */?></td>
+                <td><?/*= $val['name']; */?></td>
+                <td><?/*= $val['code']; */?></td>
+                <td><?/*= $val['manager']; */?></td>
+                <td>￥<?/*= $val['cost']; */?></td>
+                <td>
+                    <button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">编辑</button>
+                    <button class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius">删除</button>
+                </td>
+            </tr>
+            <?php
+/*        }
     }
-    ?>
-</table>
+    */?>
+</table>-->
+
+<table id="book_center_list" lay-filter="test"></table>
+
+<script type="text/html" id="buttons">
+    <button data-value="{{d.id}}" class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius">编辑</button>
+    <button data-value="{{d.id}}" class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius">删除</button>
+</script>
+<?php
+$this->registerJsFile('/js/v1/bookcenter.js');
+
