@@ -5,6 +5,7 @@ namespace backend\models;
 use yii;
 use yii\base\Model;
 use yii\db\Command;
+use yii\db\Query;
 
 class BookCenter extends BaseModel
 {
@@ -60,6 +61,15 @@ class BookCenter extends BaseModel
     {
         $res = Yii::$app->db->createCommand('select * from `area` where `parentid` in (440100,440300,441400)')->queryAll();
         return $res;
+    }
+
+    public static function getOne($id){
+        $query = new Query();
+        $res = $query->select(['name','code','manager','cost'])
+            ->from('center_info')
+            ->where(['is_valid'=>1, 'id'=>(int)$id])
+            ->one();
+        return self::returnData($res, 1);
     }
 
 }

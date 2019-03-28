@@ -28,7 +28,7 @@ class BaseModel extends Model
         }else{
             $return['data'] = $data;
         }
-        return json_encode($return);
+        return json_encode($return,JSON_UNESCAPED_UNICODE);
 
     }
 

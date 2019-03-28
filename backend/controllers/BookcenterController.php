@@ -55,6 +55,16 @@ class BookcenterController extends BaseController
 
     }
 
+    public function actionDetail(){
+        $id = Yii::$app->request->get('id') ? Yii::$app->request->get('id') : '';
+        if($id == ''){
+            return false;
+        }
+        $model = new BookCenter();
+        $res = $model::getOne($id);
+        return $res;
+    }
+
 
     public function actionTest()
     {

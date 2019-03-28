@@ -1,5 +1,26 @@
-layui.use('table', function () {
+
+var $ = layui.jquery, layer = layui.layer;
+var formData = {
+    'name':'',
+    'code':'',
+    'manager':'',
+    'cost':'',
+    'id':'',
+};
+
+layui.use(['table','layer','form'], function () {
     var table = layui.table;
+    var form = layui.form;
+    var html = $('#form').html();
+    var layerOption = {
+        type: 1,
+        area: ['50%', '350px'],
+        id: 'add_btn1',
+        anim: 5,
+        shadeClose: false, //点击遮罩关闭
+        content: '\<\div width:50%; padding:20px;">'+html+'\<\/div>',
+        shade: 0,
+    };
     table.init('book_center_list', {
         height: 800,
         loading: true,
@@ -7,7 +28,7 @@ layui.use('table', function () {
     //第一个实例
     table.render({
         elem: '#book_center_list'
-        , height: 700
+        , height: 650
         , url: '/bookcenter/getdata' //数据接口
         , limit: 20
         , page: true //开启分页
@@ -20,42 +41,29 @@ layui.use('table', function () {
             , {field: '', title: '操作', templet: '#buttons'}
         ]]
     });
-});
+    table.on('tool(book_center)', function(obj){
+        console.log(obj);
+        var detail = obj.data;
 
-layui.use('layer', function(){
-    var $ = layui.jquery, layer = layui.layer;
+        layer.open(
+            layerOption
+        )
+        form.val('add-form', detail);
 
-    var active = {
-        add: function(){
-            var type = othis.data('type')
-                ,text = othis.text();
-
-            layer.open({
-                type: 1
-                ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
-                ,id: 'layerDemo'+type //防止重复弹出
-                ,content: '<div style="padding: 20px 100px;">'+ text +'</div>'
-                ,btn: '关闭全部'
-                ,btnAlign: 'c' //按钮居中
-                ,shade: 0 //不显示遮罩
-                ,yes: function(){
-                    layer.closeAll();
-                }
-            });
-        }
-    };
-    /*$('.layui-btn').on('click', function(){
-        // alert('a')
-        var othis = $(this), method = othis.data('method');
-        active[method] ? active[method].call(this, othis) : '';
-    });*/
-
-    $('#add_btn').on('click', function(){
-        layer.open({
-            type: 1,
-            area: ['600px', '360px'],
-            shadeClose: true, //点击遮罩关闭
-            content: '\<\div style="padding:20px;">自定义内容\<\/div>'
-        });
     });
+
+    $('#add_btn').on('click', function () {
+        layer.open(
+            layerOption
+        );
+    });
+
+    form.on('submit(add)', function (data) {
+        console.log(data.field);
+        // layui.layer.closeAll();
+        return false;
+    });
+
+    form.val('add-form',formData);
+
 });
