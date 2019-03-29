@@ -6,6 +6,7 @@ use yii;
 use yii\base\Model;
 use yii\db\Command;
 use yii\db\Query;
+use common\models\CenterInfo;
 
 class BookCenter extends BaseModel
 {
@@ -34,6 +35,12 @@ class BookCenter extends BaseModel
         $res = Yii::$app->db->createCommand("select `id`,`name`,`code`,`manager`,`cost`,`create_time` from center_info where is_valid=:is_valid limit $begin,$limit")
             ->bindValue(':is_valid', 1)
             ->queryAll();
+        if(count($res) ==0 && $page>1){
+            $begin = ($page-2) * $limit;
+            $res = Yii::$app->db->createCommand("select `id`,`name`,`code`,`manager`,`cost`,`create_time` from center_info where is_valid=:is_valid limit $begin,$limit")
+                ->bindValue(':is_valid', 1)
+                ->queryAll();
+        }
         if ($res) {
             $count = $this::getCount('center_info');
             return $this::returnData($res, $count);
@@ -69,7 +76,17 @@ class BookCenter extends BaseModel
             ->from('center_info')
             ->where(['is_valid'=>1, 'id'=>(int)$id])
             ->one();
-        return self::returnData($res, 1);
+        return self::returnData($res);
+    }
+
+    public static function delete($id){
+        $info = CenterInfo::findOne($id);
+        if($info->is_valid == 0){
+            return self::returnData(false, 1, '删除失败，请联系管理员.');
+        }
+        $info->is_valid = 0;
+        $res = $info->save();
+        return self::returnData($res);
     }
 
 }

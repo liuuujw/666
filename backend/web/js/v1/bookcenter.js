@@ -26,7 +26,7 @@ layui.use(['table','layer','form'], function () {
         loading: true,
     });
     //第一个实例
-    table.render({
+    var tableIns = table.render({
         elem: '#book_center_list'
         , height: 650
         , url: '/bookcenter/getdata' //数据接口
@@ -42,13 +42,37 @@ layui.use(['table','layer','form'], function () {
         ]]
     });
     table.on('tool(book_center)', function(obj){
-        console.log(obj);
         var detail = obj.data;
+        if(obj.event === 'edit-btn'){
+            layer.open(
+                layerOption
+            );
+            form.val('add-form', detail);
+        }else if(obj.event === 'del_btn'){
+            //当前页
+            var currentPage = tableIns.config.page.curr;
+            console.log(currentPage);
+            console.log(tableIns.config.page);
+            // tableIns.reload({
+            //     pages:{curr: currentPage}
+            // })
+            if(confirm("确定要删除吗？") === true){
+                $.ajax({
+                    url: '/bookcenter/del',
+                    data: {id: obj.data.id},
+                    type: 'POST',
+                    success: function(data){
+                        console.log(data);
+                        tableIns.reload({
+                            pages:{curr: 1}
+                        });
+                    }
+                });
 
-        layer.open(
-            layerOption
-        )
-        form.val('add-form', detail);
+            }
+
+        }
+
 
     });
 

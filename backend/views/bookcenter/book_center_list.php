@@ -51,8 +51,8 @@
 
 
 <script type="text/html" id="buttons">
-    <button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius edit_btn">编辑</button>
-    <button class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius del_btn">删除</button>
+    <button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius" lay-event="edit_btn">编辑</button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius" lay-event="del_btn">删除</button>
 </script>
 <?php
 $this->registerJsFile('/js/v1/bookcenter.js');

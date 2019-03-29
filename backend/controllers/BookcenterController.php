@@ -17,7 +17,7 @@ class BookcenterController extends BaseController
     {
 
         $this->getModelName($this->m_name, '列表');
-//        $model = new BookCenter();
+//        $model = new CenterInfo();
 //        $data = $model->getList();
 
         /*if (!$data) {
@@ -69,6 +69,17 @@ class BookcenterController extends BaseController
     public function actionTest()
     {
         echo phpinfo();
+    }
+
+    public function actionDel(){
+        $id = Yii::$app->request->post('id') ? Yii::$app->request->post('id') : '';
+        if($id != ''){
+            $model = new BookCenter();
+            $res = $model::delete($id);
+            print_r($res);
+            die;
+        }
+        return false;
     }
 
 }
