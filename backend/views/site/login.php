@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
             <?php ActiveForm::end(); ?>
-            <a href="tel:13622745564">电话</a>
         </div>
     </div>
 </div>

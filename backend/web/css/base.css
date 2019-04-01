@@ -1,7 +1,18 @@
+html {
+    height: 100%;
+}
+
+/*
+body {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+*/
+
 a:link {
     text-decoration: none;
 }
-
 
 .layui-table {
     text-align: center;
@@ -20,6 +31,6 @@ a:link {
     font-size: 16px;
 }
 
-.layui-table-cell{
+.layui-table-cell {
     text-align: center;
 }
