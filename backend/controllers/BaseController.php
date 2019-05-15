@@ -9,6 +9,7 @@ class BaseController extends Controller
 {
     public $menu = [];
     public $user = [];
+//    public $enableCsrfValidation = false;
 
     public function beforeAction($action)
     {

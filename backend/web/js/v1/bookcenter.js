@@ -43,12 +43,16 @@ layui.use(['table','layer','form'], function () {
     });
     table.on('tool(book_center)', function(obj){
         var detail = obj.data;
+        console.log(obj.event);
         if(obj.event === 'edit-btn'){
+
             layer.open(
                 layerOption
             );
+            $('#save_add').css('display', 'none');
+            $('#save_edit').css('display', 'block');
             form.val('add-form', detail);
-        }else if(obj.event === 'del_btn'){
+        }else if(obj.event === 'del-btn'){
             //当前页
             var currentPage = tableIns.config.page.curr;
             console.log(currentPage);
@@ -68,23 +72,30 @@ layui.use(['table','layer','form'], function () {
                         });
                     }
                 });
-
             }
-
         }
-
-
     });
 
     $('#add_btn').on('click', function () {
         layer.open(
             layerOption
         );
+
     });
 
-    form.on('submit(add)', function (data) {
+    form.on('submit(save)', function (data) {
         console.log(data.field);
-        // layui.layer.closeAll();
+        var postData = data.field;
+        postData._csrf = $('input[name="_csrf"]').val();
+        $.ajax({
+            url: data.form.action,
+            data: postData,
+            dataType: 'JSON',
+            type: data.form.method,
+            success: function(data){
+                console.log(data);
+            }
+        });
         return false;
     });
 

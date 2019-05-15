@@ -9,7 +9,8 @@
 
 <div id="form" style="display: none">
     <div style="width: 100%;padding: 10px;">
-        <form class="layui-form" action="" id="add-form" lay-filter="add-form">
+        <form class="layui-form" method="post" action="/bookcenter/save" id="add-form" lay-filter="add-form">
+            <input type="hidden" name="_csrf" value="<?= Yii::$app->request->csrfToken ?>" />
             <input type="hidden" name="id" value="" />
             <div class="layui-form-item">
                 <label class="layui-form-label">中心名称</label>
@@ -39,9 +40,10 @@
                            class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item" id="add-btn-div">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="add">添加</button>
+<!--                    <button class="layui-btn" lay-event="save-btn">保存</button>-->
+                    <button lay-submit class="layui-btn layui-btn-normal" lay-filter="save">保存</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -51,8 +53,8 @@
 
 
 <script type="text/html" id="buttons">
-    <button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius" lay-event="edit_btn">编辑</button>
-    <button class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius" lay-event="del_btn">删除</button>
+    <button class="layui-btn layui-btn-sm layui-btn-normal layui-btn-radius" lay-event="edit-btn">编辑</button>
+    <button class="layui-btn layui-btn-sm layui-btn-danger layui-btn-radius" lay-event="del-btn">删除</button>
 </script>
 <?php
 $this->registerJsFile('/js/v1/bookcenter.js');

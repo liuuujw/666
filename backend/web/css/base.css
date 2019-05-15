@@ -34,3 +34,11 @@ a:link {
 .layui-table-cell {
     text-align: center;
 }
+
+#save_add{
+    display: block !important;
+}
+
+#save_edit{
+    display: block !important;
+}

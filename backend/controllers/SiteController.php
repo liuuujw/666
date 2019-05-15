@@ -14,6 +14,7 @@ use common\models\LoginForm;
 class SiteController extends Controller
 {
     public $layout = 'main';
+
     /**
      * {@inheritdoc}
      */
@@ -72,7 +73,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->redirect('/bookcenter');
+
+//        $_browser = "";
+//        if (strpos($_SERVER['HTTP_USER_AGENT'], 'iphone') || strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') || strpos($_SERVER['HTTP_USER_AGENT'], 'ipod') || strpos($_SERVER['HTTP_USER_AGENT'], 'ipad')) {
+//            $_browser = 'iphone';
+//        } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'android') || strpos($_SERVER['HTTP_USER_AGENT'], 'Android')) {
+//            $_browser = 'android';
+//        }
+
+//        if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|iphone|ipad|ipod|android|xoom)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+//            header("location:http://wap.dchcn.com/");
+//        }
+        echo 'a';die;
+        return $this->redirect('/bookcenter');
         return $this->render('index');
     }
 
@@ -90,13 +103,14 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
             $user_info = $model->login();
-            if(!empty($user_info)){
+            if (!empty($user_info)) {
                 $user_info['expire'] = time();
-                Yii::$app->session->set('userInfo',$user_info);
+                Yii::$app->session->set('userInfo', $user_info);
                 $this->redirect('/index');
                 \Yii::$app->end();
             }
-            echo '用户名/密码不正确。';die;
+            echo '用户名/密码不正确。';
+            die;
         } else {
             $model->password = '';
 
@@ -122,14 +136,15 @@ class SiteController extends Controller
     {
         $model = new LoginForm();
 
-        if($model->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post())) {
             return $model->register();
         }
 
         return $this->render('register', ['model' => $model]);
     }
 
-    public function actionNew(){
+    public function actionNew()
+    {
 
         $this->layout = 'layui';
         return $this->render('layui');

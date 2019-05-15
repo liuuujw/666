@@ -84,8 +84,6 @@ AppAsset::register($this);
                     <?php
                 }
                 ?>
-                <li class="layui-nav-item"><a href=""></a></li>
-                <li class="layui-nav-item"><a href=""></a></li>
 
             </ul>
         </div>

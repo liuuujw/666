@@ -38,26 +38,30 @@ class BookcenterController extends BaseController
 
     }
 
-    public function actionGetdata(){
+    public function actionGetdata()
+    {
         $page = Yii::$app->request->get('page') ? Yii::$app->request->get('page') : 1;
         $limit = Yii::$app->request->get('limit') ? Yii::$app->request->get('limit') : Yii::$app->params['defaultLimit'];
         $model = new BookCenter();
-        $data = $model->getList($page,$limit);
+        $data = $model->getList($page, $limit);
         return $data;
     }
 
     public function actionAdd()
     {
+        if (Yii::$app->request->isAjax) {
+            $model = new BookCenter();
+            $data = Yii::$app->request->post() ? Yii::$app->request->post() : [];
+            return $data;
+        }
 
-        $this->getModelName($this->m_name, '添加');
-        $model = new BookCenter();
-        return $this->render('add_book_center_info', ['model' => $model]);
 
     }
 
-    public function actionDetail(){
+    public function actionDetail()
+    {
         $id = Yii::$app->request->get('id') ? Yii::$app->request->get('id') : '';
-        if($id == ''){
+        if ($id == '') {
             return false;
         }
         $model = new BookCenter();
@@ -71,15 +75,27 @@ class BookcenterController extends BaseController
         echo phpinfo();
     }
 
-    public function actionDel(){
+    public function actionDel()
+    {
         $id = Yii::$app->request->post('id') ? Yii::$app->request->post('id') : '';
-        if($id != ''){
+        if ($id != '') {
             $model = new BookCenter();
             $res = $model::delete($id);
             print_r($res);
             die;
         }
         return false;
+    }
+
+    public function actionSave()
+    {
+        $postData = Yii::$app->request->post() ? Yii::$app->request->post() : '';
+        $model = new BookCenter();
+        if (isset($postData['id']) && $postData['id'] == '') {
+            //添加
+        } else {
+            //修改
+        }
     }
 
 }
