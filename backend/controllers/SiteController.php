@@ -106,18 +106,17 @@ class SiteController extends Controller
             if (!empty($user_info)) {
                 $user_info['expire'] = time();
                 Yii::$app->session->set('userInfo', $user_info);
-                $this->redirect('/index');
+                return $this->redirect('/index');
                 \Yii::$app->end();
             }
             echo '用户名/密码不正确。';
             die;
         } else {
             $model->password = '';
-
-            return $this->render('login', [
+        }
+		return $this->render('login', [
                 'model' => $model,
             ]);
-        }
     }
 
     /**

@@ -66,10 +66,10 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             $params = [
-                ':user_name' => $this->username,
+                ':username' => $this->username,
                 ':password' => md5(md5($this->password))
             ];
-            $res = Yii::$app->db->createCommand("SELECT `id`, `user_name`, `name`, `age`, `phone`, `token` FROM `user` WHERE `user_name` = :user_name AND `password` = :password;", $params)
+            $res = Yii::$app->db->createCommand("SELECT `id`, `username`, `name`, `age`, `phone`, `token` FROM `user` WHERE `username` = :username AND `password` = :password;", $params)
                 ->queryOne();
             return $res;
         }
@@ -97,19 +97,19 @@ class LoginForm extends Model
     {
         $values = [
             'id' => md5(uniqid(1)),
-            'user_name' => $this->username,
+            'username' => $this->username,
             'password' => md5(md5($this->password)),
             'name' => $this->name,
             'phone' => $this->phone,
             'age' => $this->age,
             'login_time' => date('Y-m-d H:i:s'),
-            'create_time' => date('Y-m-d H:i:s'),
+            'created_time' => date('Y-m-d H:i:s'),
         ];
 
         $res = Yii::$app->db->createCommand()
             ->insert('user', $values)
             ->execute();
-        print_r($res);
+		return $res;
 
     }
 

@@ -2,9 +2,10 @@
 
 namespace backend\controllers;
 
+use common\models\Test;
 use yii;
 
-class TestController extends BaseController
+class TestController extends yii\web\Controller
 {
     public $layout = 'main';
 
@@ -23,7 +24,9 @@ class TestController extends BaseController
     public function actionIndex()
     {
 
-        return $this->render('index');
+        $model = new Test();
+        $res = $model->test();
+        print_r($res);
 
     }
 
