@@ -18,8 +18,8 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
 
 
-<!--    <link rel="stylesheet" href="/css/layui.css">-->
-<!--    <link rel="stylesheet" href="/css/base.css">-->
+    <!--    <link rel="stylesheet" href="/css/layui.css">-->
+    <!--    <link rel="stylesheet" href="/css/base.css">-->
     <?= $this->head() ?>
 </head>
 <body class="layui-layout-body">
@@ -62,26 +62,30 @@ AppAsset::register($this);
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <?php
-                $url = \Yii::$app->request->getPathInfo();
-                foreach ($this->context->menu as $menu) {
-                    ?>
-                    <li class="layui-nav-item <?= $menu['name'] == $this->params['m_name'] ? 'layui-nav-itemed' : '' ?> <?= (!isset($menu['item']) && $menu['url'] == '/' . $url) ? 'layui-this' : '' ?>">
-                        <a href="<?= isset($menu['item']) ? 'javascript:;' : $menu['url'] ?>" class="">
-                            <?= $menu['name'] ?>
-                        </a>
-                        <?php
-                        if (isset($menu['item']) && $menu['item']) {
-                            $html = '<dl class="layui-nav-child">';
-                            foreach ($menu['item'] as $child) {
-                                $selected = ($child['url'] == '/' . \Yii::$app->request->getPathInfo()) ? ' class="layui-this"' : '';
-                                $html .= '<dd' . $selected . '><a href="' . $child['url'] . '">' . $child['name'] . '</a></dd>';
-                            }
-                            $html .= '<dl class="layui-nav-child">';
-                            echo $html;
-                        }
+                if (isset($this->context->menu)) {
+
+
+                    $url = \Yii::$app->request->getPathInfo();
+                    foreach ($this->context->menu as $menu) {
                         ?>
-                    </li>
-                    <?php
+                        <li class="layui-nav-item <?= $menu['name'] == $this->params['m_name'] ? 'layui-nav-itemed' : '' ?> <?= (!isset($menu['item']) && $menu['url'] == '/' . $url) ? 'layui-this' : '' ?>">
+                            <a href="<?= isset($menu['item']) ? 'javascript:;' : $menu['url'] ?>" class="">
+                                <?= $menu['name'] ?>
+                            </a>
+                            <?php
+                            if (isset($menu['item']) && $menu['item']) {
+                                $html = '<dl class="layui-nav-child">';
+                                foreach ($menu['item'] as $child) {
+                                    $selected = ($child['url'] == '/' . \Yii::$app->request->getPathInfo()) ? ' class="layui-this"' : '';
+                                    $html .= '<dd' . $selected . '><a href="' . $child['url'] . '">' . $child['name'] . '</a></dd>';
+                                }
+                                $html .= '<dl class="layui-nav-child">';
+                                echo $html;
+                            }
+                            ?>
+                        </li>
+                        <?php
+                    }
                 }
                 ?>
 
