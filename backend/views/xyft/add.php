@@ -32,7 +32,7 @@ if(!Yii::$app->session->getFlash('success')){
                     <h5 class="text-danger"><?= Yii::$app->session->getFlash('error') ?? '' ?></h5>
                 </div>
                 <div class="row">
-                    <div class="form-group">
+                    <div class="form-group col-xs-4">
                         <?= Html::submitButton('Ìí¼Ó', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                     </div>
                 </div>

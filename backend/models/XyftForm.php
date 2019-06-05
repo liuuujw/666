@@ -22,7 +22,7 @@ class XyftForm extends Xyft
 
     public function addInfo()
     {
-        $stage = date('Ymd') . sprintf("%04d", (int)$this->stage);
+        $stage = date('Ymd') . sprintf("%03d", (int)$this->stage);
         $model = new Xyft();
         if ($this->findStage($stage)) {
             $model->stage = $stage;

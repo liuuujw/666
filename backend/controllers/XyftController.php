@@ -19,6 +19,7 @@ class XyftController extends yii\web\Controller
         $count = count($res);
 //        $stage = 1;
         $oneArray = [];
+        $stageCount=0;
         for ($i = 0; $i < $count; $i++) {
             if (!isset($res[$i]['one'])) {
                 echo $i;
@@ -26,15 +27,16 @@ class XyftController extends yii\web\Controller
             }
             $one = $res[$i]['one'];
             $guess = implode(',', $this->getFiveRandNumber());
+            $stageCount++;
             $guessRes = (strpos($guess, $one)) ? '中' : '黑';
             $oneArray[] = $one;
-            echo '第' . ($i+1) . '期开奖:' . $one;
+            echo '第' . substr($res[$i]['stage'],8) . '期开奖:' . $one;
             echo '<br>';
-            echo '前' . ($i+1) . '期:&nbsp;&nbsp;&nbsp;&nbsp;';
+            echo '前' . $stageCount . '期:&nbsp;&nbsp;&nbsp;&nbsp;';
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
             foreach ($chanceArray as $k => $v) {
-                $str = $k . ':' . number_format($v / ($i+1), 2) * 100 . '%;&nbsp;&nbsp;';
+                $str = $k . ':' . number_format($v / $count, 2) * 100 . '%;&nbsp;&nbsp;';
                 if ($res[$i]['one'] == $k) {
                     echo '<span style="color:#ff003c">' . $str . '</span>';
                 } else {
