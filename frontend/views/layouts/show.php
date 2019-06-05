@@ -1,4 +1,4 @@
-<?php
+О╩©<?php
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -34,8 +34,8 @@ AppAsset::register($this);
     <div class="menu-left">
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" class="active"><a href="#">PPT</a></li>
-            <li role="presentation"><a href="#">бшнд</a></li>
-            <li role="presentation"><a href="#">йсф╣</a></li>
+            <li role="presentation"><a href="#">Х╝╨Ф√┤</a></li>
+            <li role="presentation"><a href="#">Х╖├И╒▒</a></li>
         </ul>
     </div>
 
