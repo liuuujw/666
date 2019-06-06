@@ -1,0 +1,32 @@
+.menu-left {
+    float: left;
+    margin: 10px 20px 10px;
+    width: 15%;
+    height: auto;
+}
+
+.nav-stacked > li {
+    text-align: center;
+}
+
+.main-content {
+    width: 80%;
+    float: left;
+    border: #C9C9C9 solid 1px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#video {
+    display: none;
+}
+
+#lw {
+    display: none;
+}
+
+/*
+.btn{
+    border-radius: 5px;
+    border: #8abeb7 1px solid;
+}*/

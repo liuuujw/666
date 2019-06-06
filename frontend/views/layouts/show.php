@@ -31,15 +31,16 @@ AppAsset::register($this);
     <div class="top">
         <h2>aaaaa</h2>
     </div>
-    <div class="menu-left">
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active"><a href="#">PPT</a></li>
-            <li role="presentation"><a href="#">论文</a></li>
-            <li role="presentation"><a href="#">视频</a></li>
-        </ul>
-    </div>
+
 
     <div class="container">
+        <div class="menu-left">
+            <ul class="nav nav-pills nav-stacked">
+                <li data-value="ppt" role="presentation" class="active"><a href="javascript:;">PPT</a></li>
+                <li data-value="lw" role="presentation"><a href="javascript:;">论文</a></li>
+                <li data-value="video" role="presentation"><a href="javascript:;">视频</a></li>
+            </ul>
+        </div>
         <?= $content ?>
     </div>
 </div>
