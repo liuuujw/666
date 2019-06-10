@@ -30,3 +30,96 @@
     border-radius: 5px;
     border: #8abeb7 1px solid;
 }*/
+
+.ppt-content {
+    margin: 0 auto;
+    width: 819px;
+    height: 617px;
+    padding: 10px;
+}
+
+.ppt-content-block{
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+
+.index-bg {
+    background-image: url(".././image/index_bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 579px;
+}
+
+.hide {
+    display: none;
+}
+
+.second-content-title {
+    margin-bottom: 50px;
+}
+
+.second-content-title > span {
+    font-family: 黑体;
+    color: red;
+    font-size: 72px;
+}
+
+.second-content {
+    font-family: 宋体;
+    font-size: 38px;
+}
+
+.text-red {
+    color: red;
+}
+
+.text-blue {
+    color: #0D47A1;
+}
+
+.third-content {
+    background-image: url(".././image/third_bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 579px;
+    display: flex;
+
+}
+
+.third-span-block {
+    background-color: white;
+    margin: auto 30px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    filter: alpha(opacity:60);
+    opacity: 0.6;
+    -moz-opacity: 0.6;
+    -khtml-opacity: 0.6;
+}
+
+.third-span-block > span {
+    font-family: 黑体;
+    font-size: 40px;
+    color: #0C0C0C;
+}
+
+ .text-block{
+    float: left;
+    margin-left: 70px;
+    margin-top: 10px;
+}
+
+.text-block > span{
+    font-size: 44px;
+    font-family: 黑体;
+}
+
+.firth-block > .text-block{
+    float: left;
+    margin-left: 70px;
+    margin-top: 30px;
+}
