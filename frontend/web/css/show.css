@@ -1,3 +1,16 @@
+/*body{
+    background-image: url("../image/bg.jpg");
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+}*/
+
+.size-44-black {
+    font-family: 黑体;
+    font-size: 44px;
+    font-weight: bolder;
+}
+
 .menu-left {
     float: left;
     margin: 10px 20px 10px;
@@ -38,8 +51,8 @@
     padding: 10px;
 }
 
-.ppt-content-block{
-    text-align: center;
+.ppt-content-block {
+    /*text-align: center;*/
     width: 100%;
     height: auto;
 }
@@ -56,7 +69,12 @@
     display: none;
 }
 
+.show{
+    display: block;
+}
+
 .second-content-title {
+    text-align: left;
     margin-bottom: 50px;
 }
 
@@ -66,7 +84,7 @@
     font-size: 72px;
 }
 
-.second-content {
+.second-span-block {
     font-family: 宋体;
     font-size: 38px;
 }
@@ -77,6 +95,10 @@
 
 .text-blue {
     color: #0D47A1;
+}
+
+.text-orange {
+    color: #dd5309;
 }
 
 .third-content {
@@ -90,15 +112,11 @@
 }
 
 .third-span-block {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.4);
     margin: auto 30px;
     padding-left: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    filter: alpha(opacity:60);
-    opacity: 0.6;
-    -moz-opacity: 0.6;
-    -khtml-opacity: 0.6;
 }
 
 .third-span-block > span {
@@ -107,19 +125,232 @@
     color: #0C0C0C;
 }
 
- .text-block{
+.text-block {
     float: left;
     margin-left: 70px;
     margin-top: 10px;
 }
 
-.text-block > span{
+.text-block > span {
     font-size: 44px;
     font-family: 黑体;
 }
 
-.firth-block > .text-block{
+.firth-block > .text-block {
     float: left;
     margin-left: 70px;
     margin-top: 30px;
+}
+
+.sixty-bg {
+    background-image: url("../image/csjl.png");
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 599px;
+    padding: 5px;
+}
+
+.sixty-title {
+    margin-top: 30px;
+}
+
+.sixty-title span {
+    color: red;
+    font-family: 黑体;
+    font-size: 40px;
+}
+
+.seventh-bg {
+    width: 100%;
+    height: 599px;
+}
+
+.seventh-bg > .seventh-left {
+    float: left;
+    background-image: url("../image/cs1.png");
+    width: 50%;
+    height: 355px;
+    background-size: cover;
+}
+
+.seventh-right {
+    float: left;
+    margin-left: 5px;
+    background-image: url("../image/cs2.png");
+    width: 49%;
+    height: 355px;
+    background-size: cover;
+}
+
+.seventh-title {
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+
+.seventh-title > span {
+    font-size: 44px;
+    font-family: 黑体;
+}
+
+.eighth-title {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.eighth-title > span {
+    font-size: 44px;
+    font-family: 黑体;
+}
+
+.tenth-bg {
+    background-image: url("../image/cs3.png");
+    background-repeat: no-repeat;
+    width: 799px;
+    height: 599px;
+}
+
+.tenth-title {
+    padding: 50px 20px 0 20px;
+}
+
+.tenth-title > span {
+    text-align: left;
+    font-size: 38px;
+}
+
+.eleventh-bg {
+    background-image: url("../image/cs4.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 354px;
+}
+
+.twelfth-bg {
+    background-image: url("../image/twelfth-bg.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 414px;
+}
+
+.twelfth-span-block {
+    background-color: #ddd700;
+    margin-top: 10px;
+}
+
+.twelfth-span-block > span {
+    font-size: 28px;
+}
+
+.fourteenth-bg {
+    background-image: url("../image/cs4.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 345px;
+}
+
+.fifteenth-img {
+    width: 100%;
+    height: 270px;
+    margin-bottom: 30px;
+    margin-left: 10em;
+}
+
+.shupai {
+    margin: 0 auto;
+    float: left;
+    width: 50px;
+    height: 250px;
+    line-height: 120px;
+    margin-right: 50px;
+}
+
+.fifteenth-img > img {
+    float: left;
+    width: 380px;
+    height: 250px;
+}
+
+.sixteenth-content {
+    background-image: url("../image/cs7.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 40px;
+    width: 799px;
+    height: 579px;
+}
+
+.sixteenth-span-block {
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: auto 30px;
+    padding: 10px;
+    position: static;
+    *zoom: 1;
+}
+
+.sixteenth-span-block > span {
+    position: relative;
+}
+
+.seventeenth-span-block{
+    margin: 30px auto;
+}
+
+.seventeenth-img{
+    background-image: url("../image/cs8.png");
+    width: 799px;
+    height: 345px;
+    background-size: cover;
+}
+
+.eighteenth-content{
+    background-image: url("../image/cs9.png");
+    background-size: cover;
+    width: 799px;
+    height: 579px;
+}
+
+.eighteenth-span-block{
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: auto;
+    padding: 10px;
+    position: static;
+    *zoom: 1;
+}
+
+.eighteenth-span-block > span{
+    font-size: 26px;
+    font-family: 黑体;
+}
+
+.nineteenth-span-block{
+    text-align: left;
+    margin: 20px auto;
+}
+
+.nineteenth-span-block > span {
+    font-size: 34px;
+    font-family: 黑体;
+}
+
+.nineteenth-img{
+    background-image: url("../image/cs10.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 130px;
+}
+
+.twentieth-content{
+    height: 579px;
+    line-height: 50px;
+    padding-top: 50px;
+}
+
+.twentieth-content > p{
+    font-size: 44px;
+    font-family: 黑体;
 }
