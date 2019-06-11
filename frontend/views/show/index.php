@@ -8,7 +8,7 @@ $this->registerCssFile('./css/show.css');
     <div class="main-content">
         <div id="ppt">
             <div class="ppt-content">
-                <div class="ppt-content-block first-content index-bg hide"></div>
+                <div class="ppt-content-block first-content index-bg show"></div>
                 <div class="ppt-content-block second-content hide">
                     <div class="second-content-title">
                         <span>资料袋</span>
@@ -140,7 +140,7 @@ $this->registerCssFile('./css/show.css');
                         <span><span class="text-red">崇</span>山<span class="text-red">峻</span>岭</span>
                     </div>
                 </div>
-                <div class="ppt-content-block sixth-content show">
+                <div class="ppt-content-block sixth-content hide">
                     <div class="sixty-bg">
                         <div class="sixty-title">
                             <span>崇山峻岭</span>
