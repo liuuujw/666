@@ -28,17 +28,20 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <div class="top">
+<!--    <div class="top">
         <h2>aaaaa</h2>
-    </div>
+    </div>-->
 
 
     <div class="container">
         <div class="menu-left">
             <ul class="nav nav-pills nav-stacked">
-                <li data-value="ppt" role="presentation" class="active"><a href="javascript:;">PPT</a></li>
-                <li data-value="lw" role="presentation"><a href="javascript:;">论文</a></li>
-                <li data-value="video" role="presentation"><a href="javascript:;">视频</a></li>
+                <li data-value="jxsj" role="presentation"><a href="javascript:;">教学设计</a></li>
+                <li data-value="video" role="presentation"><a href="javascript:;">教学录像</a></li>
+                <li data-value="ppt" role="presentation" class="active"><a href="javascript:;">教学资源</a></li>
+                <li data-value="jxfs" role="presentation"><a href="javascript:;">教学反思</a></li>
+                <li data-value="student" role="presentation"><a href="javascript:;">学生作品</a></li>
+                <li data-value="zjpj" role="presentation"><a href="javascript:;">专家评价</a></li>
             </ul>
         </div>
         <?= $content ?>

@@ -1,9 +1,14 @@
-/*body{
+body {
     background-image: url("../image/bg.jpg");
     background-repeat: no-repeat;
     width: 100%;
     background-size: cover;
-}*/
+}
+
+.main-content {
+    background-color: rgba(255, 255, 255, 0.5);
+    height: content-box;
+}
 
 .size-44-black {
     font-family: 黑体;
@@ -34,7 +39,7 @@
     display: none;
 }
 
-#lw {
+#jxzy {
     display: none;
 }
 
@@ -69,7 +74,7 @@
     display: none;
 }
 
-.show{
+.show {
     display: block;
 }
 
@@ -295,25 +300,25 @@
     position: relative;
 }
 
-.seventeenth-span-block{
+.seventeenth-span-block {
     margin: 30px auto;
 }
 
-.seventeenth-img{
+.seventeenth-img {
     background-image: url("../image/cs8.png");
     width: 799px;
     height: 345px;
     background-size: cover;
 }
 
-.eighteenth-content{
+.eighteenth-content {
     background-image: url("../image/cs9.png");
     background-size: cover;
     width: 799px;
     height: 579px;
 }
 
-.eighteenth-span-block{
+.eighteenth-span-block {
     background-color: rgba(255, 255, 255, 0.4);
     margin: auto;
     padding: 10px;
@@ -321,12 +326,12 @@
     *zoom: 1;
 }
 
-.eighteenth-span-block > span{
+.eighteenth-span-block > span {
     font-size: 26px;
     font-family: 黑体;
 }
 
-.nineteenth-span-block{
+.nineteenth-span-block {
     text-align: left;
     margin: 20px auto;
 }
@@ -336,7 +341,7 @@
     font-family: 黑体;
 }
 
-.nineteenth-img{
+.nineteenth-img {
     background-image: url("../image/cs10.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -344,13 +349,39 @@
     height: 130px;
 }
 
-.twentieth-content{
+.twentieth-content {
     height: 579px;
     line-height: 50px;
     padding-top: 50px;
 }
 
-.twentieth-content > p{
+.twentieth-content > p {
     font-size: 44px;
     font-family: 黑体;
+}
+
+.article-block {
+    width: 100%;
+    padding: 30px 40px;
+    height: auto;
+}
+
+.article-title {
+    width: 100%;
+    text-align: center;
+    font-size: 38px;
+}
+
+.article-content > p {
+    text-indent: 35px;
+    font-size: 20px;
+}
+
+.jxzy-nav{
+    margin-left: 10em;
+    line-height: 100px;
+}
+
+.jxzy-nav > p {
+    font-size: 30px;
 }

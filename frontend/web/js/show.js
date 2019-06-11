@@ -1,8 +1,11 @@
 $(function () {
+    var client_height = $(document).height();
+    console.log(client_height);
+    console.log($(document.body).outerHeight(true));
     var ppt_count = $('.ppt-content').find('.ppt-content-block').length;
     $('.nav-stacked li').click(function () {
-        var id = ($(this).attr('data-value'));
-        $(this).siblings().removeClass('active');
+        var id = $(this).attr("data-value");
+        $(".nav-stacked").children().removeClass('active');
         $(this).addClass('active');
         $('#' + id).siblings().hide();
         $('#' + id).show();
