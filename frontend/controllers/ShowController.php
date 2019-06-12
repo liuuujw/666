@@ -14,10 +14,34 @@ class ShowController extends Controller
         return $this->render('index');
     }
 
-    public function actionKj(){
-        $content = file_get_contents('https://www.568kj1.com/ft/xyft.php');
-        preg_match('/<span(([\s\S])*?)<\/span>/',$content,$arr);
-        print_r($arr);die;
+    public function actionPpt(){
+        return $this->render('ppt');
+    }
+
+    public function actionTzyd(){
+        return $this->render('read');
+    }
+
+    public function actionThink(){
+        return $this->render('think');
+    }
+
+    public function actionVideo(){
+        return $this->render('video');
+    }
+
+    public function actionJxsj(){
+        return $this->render('jxsj');
+    }
+
+    public function actionStudent(){
+        return $this->render('student');
+    }
+
+    //评价
+    public function actionEvaluate()
+    {
+        return $this->render('evaluate');
     }
 
 }

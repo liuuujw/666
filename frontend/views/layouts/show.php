@@ -1,6 +1,7 @@
 ﻿<?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use yii\helpers\Html;
@@ -28,23 +29,26 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-<!--    <div class="top">
-        <h2>aaaaa</h2>
-    </div>-->
-
-
     <div class="container">
         <div class="menu-left">
             <ul class="nav nav-pills nav-stacked">
-                <li data-value="jxsj" role="presentation"><a href="javascript:;">教学设计</a></li>
-                <li data-value="video" role="presentation"><a href="javascript:;">教学录像</a></li>
-                <li data-value="ppt" role="presentation" class="active"><a href="javascript:;">教学资源</a></li>
-                <li data-value="jxfs" role="presentation"><a href="javascript:;">教学反思</a></li>
-                <li data-value="student" role="presentation"><a href="javascript:;">学生作品</a></li>
-                <li data-value="zjpj" role="presentation"><a href="javascript:;">专家评价</a></li>
+                <?php
+                $args = '/' . Yii::$app->request->getPathInfo();
+                $menuList = Yii::$app->params['menuList'];
+                foreach ($menuList as $menu) {
+                    if(($args == '/show/ppt' || $args == '/show/tzyd') && $menu['url'] == '/show/index'){
+                        $active = 'active';
+                    }else{
+                        $active = ($args == $menu['url']) ? 'active' : '';
+                    }
+                    echo '<li role="presentation" class="' . $active . '"><a href="' . $menu['url'] . '">' . $menu['name'] . '</a></li>';
+                }
+                ?>
             </ul>
         </div>
-        <?= $content ?>
+        <div class="main-content">
+            <?= $content ?>
+        </div>
     </div>
 </div>
 <?php $this->endBody() ?>

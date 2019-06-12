@@ -5,6 +5,10 @@ body {
     background-size: cover;
 }
 
+.weight{
+    font-weight: bold;
+}
+
 .main-content {
     background-color: rgba(255, 255, 255, 0.5);
     height: content-box;
@@ -371,6 +375,13 @@ body {
     text-align: center;
     font-size: 38px;
 }
+.article-editor{
+    font-family: 宋体;
+    margin: 10px auto;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+}
 
 .article-content > p {
     text-indent: 35px;
@@ -384,4 +395,41 @@ body {
 
 .jxzy-nav > p {
     font-size: 30px;
+}
+
+.jxsj-block{
+    width: 100%;
+    height: 600px;
+    overflow:scroll;
+    padding: 20px 40px;
+}
+
+table.gridtable {
+    text-align:center;
+    vertical-align:middle;
+    font-family: verdana,arial,sans-serif;
+    font-size:20px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+
+.evaluate-content{
+    text-align: left;
+    padding: 20px;
 }
