@@ -36,7 +36,7 @@ AppAsset::register($this);
                 $args = '/' . Yii::$app->request->getPathInfo();
                 $menuList = Yii::$app->params['menuList'];
                 foreach ($menuList as $menu) {
-                    if(($args == '/show/ppt' || $args == '/show/tzyd') && $menu['url'] == '/show/index'){
+                    if(($args == '/show/ppt' || $args == '/show/tzyd' || $args == '/show') && $menu['url'] == '/show/index'){
                         $active = 'active';
                     }else{
                         $active = ($args == $menu['url']) ? 'active' : '';
