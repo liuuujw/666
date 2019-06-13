@@ -53,10 +53,12 @@ $this->registerCssFile('/css/show.css');
     </div>
     <div class="article-page" align="center">
         <nav aria-label="Page navigation">
-            <ul class="pagination">
+            <ul class="pagination" id="page">
                 <li><a href="javascript:;">1</a></li>
                 <li><a href="javascript:;">2</a></li>
                 <li><a href="javascript:;">3</a></li>
             </ul>
         </nav>
     </div>
+<?php
+$this->registerJsFile('/js/tzyd.js', ['depends' => ['frontend\assets\AppAsset'], 'position' => $this::POS_HEAD]);
