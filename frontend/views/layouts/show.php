@@ -31,26 +31,35 @@ AppAsset::register($this);
 <div class="wrap">
     <div class="container">
         <div class="menu-left">
-            <ul class="nav nav-pills nav-stacked">
-                <?php
-                $args = '/' . Yii::$app->request->getPathInfo();
-                $menuList = Yii::$app->params['menuList'];
-                foreach ($menuList as $menu) {
-                    if(($args == '/show/ppt' || $args == '/show/tzyd' || $args == '/show') && $menu['url'] == '/show/index'){
-                        $active = 'active';
-                    }else{
-                        $active = ($args == $menu['url']) ? 'active' : '';
+            <div class="topic"></div>
+            <div class="menu">
+                <ul class="nav nav-pills nav-stacked">
+                    <?php
+                    $args = '/' . Yii::$app->request->getPathInfo();
+                    $menuList = Yii::$app->params['menuList'];
+                    foreach ($menuList as $menu) {
+                        if(($args == '/show/ppt' || $args == '/show/tzyd' || $args == '/show') && $menu['url'] == '/show/index'){
+                            $active = 'active';
+                        }else{
+                            $active = ($args == $menu['url']) ? 'active' : '';
+                        }
+                        echo '<li role="presentation" class="' . $active . '"><a href="' . $menu['url'] . '">' . $menu['name'] . '</a></li>';
                     }
-                    echo '<li role="presentation" class="' . $active . '"><a href="' . $menu['url'] . '">' . $menu['name'] . '</a></li>';
-                }
-                ?>
-            </ul>
+                    ?>
+                </ul>
+            </div>
         </div>
         <div class="main-content">
             <?= $content ?>
         </div>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-right name">广州市荔湾区培真小学   饶可旋</p>
+        </div>
+    </footer>
 </div>
+
 <?php $this->endBody() ?>
 </body>
 </html>
