@@ -14,6 +14,10 @@ class ShowController extends Controller
         return $this->render('index');
     }
 
+    public function actionJxzy(){
+        return $this->render('jxzy');
+    }
+
     public function actionPpt(){
         return $this->render('ppt');
     }

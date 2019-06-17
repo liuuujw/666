@@ -31,11 +31,15 @@ AppAsset::register($this);
 <div class="wrap">
     <div class="container">
         <div class="menu-left">
-            <div class="topic"></div>
+            <div class="main-title">
+                <div class="stars">
+                    <div class="topic"></div>
+                </div>
+            </div>
             <div class="menu">
-                <ul class="nav nav-pills nav-stacked">
+                <!--<ul class="nav nav-pills nav-stacked">
                     <?php
-                    $args = '/' . Yii::$app->request->getPathInfo();
+/*                    $args = '/' . Yii::$app->request->getPathInfo();
                     $menuList = Yii::$app->params['menuList'];
                     foreach ($menuList as $menu) {
                         if(($args == '/show/ppt' || $args == '/show/tzyd' || $args == '/show') && $menu['url'] == '/show/index'){
@@ -45,9 +49,29 @@ AppAsset::register($this);
                         }
                         echo '<li role="presentation" class="' . $active . '"><a href="' . $menu['url'] . '">' . $menu['name'] . '</a></li>';
                     }
+                    */?>
+                </ul>-->
+                <ul class="menu-list">
+                    <?php
+                    $menuList = Yii::$app->params['menuList'];
+                    foreach ($menuList as $menu) {
+                        /*if(($args == '/show/ppt' || $args == '/show/tzyd' || $args == '/show') && $menu['url'] == '/show/index'){
+                            $active = 'active';
+                        }else{
+                            $active = ($args == $menu['url']) ? 'active' : '';
+                        }*/
+                        echo '<li><a href="' . $menu['url'] . '">' . $menu['name'] . '</a></li>';
+                    }
                     ?>
+<!--                    <li><a href="javascript:;">aaaa</a></li>-->
+<!--                    <li><a href="javascript:;">aaaa</a></li>-->
+<!--                    <li><a href="javascript:;">aaaa</a></li>-->
+<!--                    <li><a href="javascript:;">aaaa</a></li>-->
+<!--                    <li><a href="javascript:;">aaaa</a></li>-->
+<!--                    <li><a href="javascript:;">aaaa</a></li>-->
                 </ul>
             </div>
+
         </div>
         <div class="main-content">
             <?= $content ?>

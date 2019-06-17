@@ -395,8 +395,11 @@ body {
 }
 
 .jxzy-nav {
-    margin-left: 10em;
-    line-height: 100px;
+    background-image: url("/image/index.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
 }
 
 .jxzy-nav > p {
@@ -451,4 +454,14 @@ table.gridtable td {
 .student-content > img {
     height: inherit;
     width: inherit;
+}
+
+.jxzy-menu{
+    padding-top: 50px;
+    text-align: center;
+    line-height: 100px;
+}
+
+.jxzy-menu > p > a{
+    font-size: 40px;
 }

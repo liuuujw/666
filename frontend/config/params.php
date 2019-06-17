@@ -2,7 +2,7 @@
 return [
     'adminEmail' => 'admin@example.com',
     'menuList'=>[
-        ['url'=>'/show/index','name'=>'教学资源'],
+        ['url'=>'/show/jxzy','name'=>'教学资源'],
         ['url'=>'/show/jxsj','name'=>'教学设计'],
         ['url'=>'/show/video','name'=>'教学录像'],
         ['url'=>'/show/think','name'=>'教学反思'],
