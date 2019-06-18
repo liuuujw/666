@@ -6,7 +6,7 @@ use yii;
 use yii\base\Controller;
 use yii\db\Command;
 
-class ShowController extends Controller
+class ShowController extends BaseController
 {
 
     public $layout = 'show';
