@@ -12,14 +12,18 @@ class XyftController extends yii\web\Controller
     public function actionIndex()
     {
         header("Content-type:text/html; charset=GBK");
+        $date = date('Y-m-d');
+        $kjtime = $date . ' 12:00:00';
         $res = Xyft::find()
+            ->andWhere(['>', 'kjtime', $kjtime])
             ->asArray()
-            ->orderBy('stage')
+            ->orderBy(['stage'=>SORT_ASC])
             ->all();
         $count = count($res);
+//        print_r($res);die;
 //        $stage = 1;
         $oneArray = [];
-        $stageCount=0;
+        $stageCount = 0;
         for ($i = 0; $i < $count; $i++) {
             if (!isset($res[$i]['one'])) {
                 echo $i;
@@ -30,13 +34,13 @@ class XyftController extends yii\web\Controller
             $stageCount++;
             $guessRes = (strpos($guess, $one)) ? '中' : '黑';
             $oneArray[] = $one;
-            echo '第' . substr($res[$i]['stage'],8) . '期开奖:' . $one;
+            echo '第' . substr($res[$i]['stage'], 8) . '期开奖:' . $one;
             echo '<br>';
             echo '前' . $stageCount . '期:&nbsp;&nbsp;&nbsp;&nbsp;';
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
             foreach ($chanceArray as $k => $v) {
-                $str = $k . ':' . number_format($v / $count, 2) * 100 . '%;&nbsp;&nbsp;';
+                $str = $k . ':' . number_format($v / $stageCount, 2) * 100 . '%;&nbsp;&nbsp;';
                 if ($res[$i]['one'] == $k) {
                     echo '<span style="color:#ff003c">' . $str . '</span>';
                 } else {
@@ -50,7 +54,6 @@ class XyftController extends yii\web\Controller
 //                echo '<br>'.($i+1).'期开奖:'.$one . ';&nbsp;&nbsp;' . $guess . ';&nbsp;&nbsp;' . $guessRes;
 
 
-
         }
         die;
     }
@@ -60,15 +63,15 @@ class XyftController extends yii\web\Controller
         $this->layout = 'main';
         $model = new XyftForm();
         $msg = '';
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 //            $data = Yii::$app->request->post();
 //            print_r($data);die;
             $res = $model->addInfo();
-            if($res){
-                Yii::$app->session->setFlash('success','添加成功');
+            if ($res) {
+                Yii::$app->session->setFlash('success', '添加成功');
                 return $this->redirect('/xyft/add');
-            }else{
-                Yii::$app->session->setFlash('error','添加失败');
+            } else {
+                Yii::$app->session->setFlash('error', '添加失败');
             }
         }
 
@@ -100,6 +103,36 @@ class XyftController extends yii\web\Controller
             $newArray[] = $value;
         }
         return $newArray;
+    }
+
+    public function actionFind()
+    {
+        $string = file_get_contents('./kj.txt');
+        $result = json_decode($string, JSON_UNESCAPED_UNICODE);
+        $result = $result['Data'];
+        $_model = new Xyft();
+
+        foreach ($result as $key => $value) {
+            $model = clone $_model;
+            if(!$model::find()->where(['stage'=>$value['number']])->one()){
+                $model->isNewRecord = true;
+                $model->stage = $value['number'];
+                $valArr = explode(',', $value['openCode']);
+                $model->one = $valArr[0];
+                $model->two = $valArr[1];
+                $model->three = $valArr[2];
+                $model->four = $valArr[3];
+                $model->five = $valArr[4];
+                $model->six = $valArr[5];
+                $model->seven = $valArr[6];
+                $model->eight = $valArr[7];
+                $model->nine = $valArr[8];
+                $model->ten = $valArr[9];
+                $model->kjtime = $value['date'];
+                $model->kjdate = substr($value['date'], 0, 10);
+                $model->save() && $model->id=0;
+            }
+        }
     }
 
 }
