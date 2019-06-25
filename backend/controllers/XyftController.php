@@ -135,4 +135,32 @@ class XyftController extends yii\web\Controller
         }
     }
 
+    public function actionGetres(){
+        $string = file_get_contents('https://www.568kj1.com/ft/xyft.php');
+        $preg = '/<span.*>(.*)<\/span>/isU';
+        $numberPreg = '/<h2.*>(.*([0-9]{11}).*)<\/h2>/isU';
+        preg_match_all($numberPreg, $string,$numberRes);
+        preg_match_all($preg, $string,$res);
+        $number = $numberRes[2][0];
+        $model = new Xyft();
+        if(!$model::find()->where(['stage'=>$number])->one()){
+            $model->stage = $number;
+            $model->one = $res[1][0];
+            $model->two = $res[1][1];
+            $model->three = $res[1][2];
+            $model->four = $res[1][3];
+            $model->five = $res[1][4];
+            $model->six = $res[1][5];
+            $model->seven = $res[1][6];
+            $model->eight = $res[1][7];
+            $model->nine = $res[1][8];
+            $model->ten = $res[1][9];
+            $model->kjtime = date('Y-m-d H:i:s');
+            $model->kjdate = date('Y-m-d');
+            return $model->save();
+        }
+
+        return false;
+    }
+
 }
