@@ -12,22 +12,13 @@ class XyftController extends yii\web\Controller
     public function actionIndex()
     {
         header("Content-type:text/html; charset=GBK");
-        if(date('H') > 13){
-            $kjtimeBegin = date('Y-m-d') . ' 13:00:00';
-        }
-        $kjtimeBegin = date('Y-m-d', strtotime('-1 days')) . ' 13:00:00';
-        $kjtimeEnd = date('Y-m-d') . ' 12:00:00';
+        $date = (date('H') < 13) ? date('Y-m-d', strtotime('-1 days')) :  date('Y-m-d');
         $res = Xyft::find()
-            ->andWhere(['>', 'kjtime', $kjtimeBegin])
-            ->andWhere(['<', 'kjtime', $kjtimeEnd])
+            ->Where(['kjdate'=>$date])
             ->asArray()
             ->orderBy(['stage'=>SORT_ASC])
             ->all();
-
-
         $count = count($res);
-//        print_r($res);die;
-//        $stage = 1;
         $oneArray = [];
         $stageCount = 0;
         for ($i = 0; $i < $count; $i++) {
@@ -38,7 +29,6 @@ class XyftController extends yii\web\Controller
             $one = $res[$i]['one'];
             $guess = implode(',', $this->getFiveRandNumber());
             $stageCount++;
-            $guessRes = (strpos($guess, $one)) ? '中' : '黑';
             $oneArray[] = $one;
             echo '第' . substr($res[$i]['stage'], 8) . '期开奖:' . $one;
             echo '<br>';
@@ -54,12 +44,6 @@ class XyftController extends yii\web\Controller
                 }
             }
             echo '<br>';
-            echo '<br>';
-
-
-//                echo '<br>'.($i+1).'期开奖:'.$one . ';&nbsp;&nbsp;' . $guess . ';&nbsp;&nbsp;' . $guessRes;
-
-
         }
         die;
     }
