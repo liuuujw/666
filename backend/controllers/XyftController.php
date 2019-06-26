@@ -12,13 +12,16 @@ class XyftController extends yii\web\Controller
     public function actionIndex()
     {
         header("Content-type:text/html; charset=GBK");
-        $date = date('Y-m-d');
-        $kjtime = $date . ' 12:00:00';
+        $kjtimeBegin = date('Y-m-d', strtotime('-1 days')) . ' 13:00:00';
+        $kjtimeEnd = date('Y-m-d') . ' 12:00:00';
         $res = Xyft::find()
-            ->andWhere(['>', 'kjtime', $kjtime])
+            ->andWhere(['>', 'kjtime', $kjtimeBegin])
+            ->andWhere(['<', 'kjtime', $kjtimeEnd])
             ->asArray()
             ->orderBy(['stage'=>SORT_ASC])
             ->all();
+
+
         $count = count($res);
 //        print_r($res);die;
 //        $stage = 1;
