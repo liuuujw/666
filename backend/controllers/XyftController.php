@@ -12,6 +12,9 @@ class XyftController extends yii\web\Controller
     public function actionIndex()
     {
         header("Content-type:text/html; charset=GBK");
+        if(date('H') > 13){
+            $kjtimeBegin = date('Y-m-d') . ' 13:00:00';
+        }
         $kjtimeBegin = date('Y-m-d', strtotime('-1 days')) . ' 13:00:00';
         $kjtimeEnd = date('Y-m-d') . ' 12:00:00';
         $res = Xyft::find()
@@ -132,7 +135,7 @@ class XyftController extends yii\web\Controller
                 $model->nine = $valArr[8];
                 $model->ten = $valArr[9];
                 $model->kjtime = $value['date'];
-                $model->kjdate = substr($value['date'], 0, 10);
+                $model->kjdate = substr($value['number'],0,4) . '-'. substr($value['number'],4,2) . '-' . substr($value['number'],6,2);
                 $model->save() && $model->id=0;
             }
         }
@@ -159,7 +162,7 @@ class XyftController extends yii\web\Controller
             $model->nine = $res[1][8];
             $model->ten = $res[1][9];
             $model->kjtime = date('Y-m-d H:i:s');
-            $model->kjdate = date('Y-m-d');
+            $model->kjdate = substr($number,0,4) . '-'. substr($number,4,2) . '-' . substr($number,6,2);
             return $model->save();
         }
 
