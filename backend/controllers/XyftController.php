@@ -281,7 +281,8 @@ class XyftController extends yii\web\Controller
     public function actionChance()
     {
 
-        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : date("Y-m-d");
+        $date = date('H') < 13 ? date('Y-m-d',strtotime('-1 days')) : date("Y-m-d");
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : $date;
         $two = $this->getInfo(2, $date);
         $three = $this->getInfo(3, $date);
         $seven = $this->getInfo(7, $date);
