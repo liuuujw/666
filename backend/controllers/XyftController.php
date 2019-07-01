@@ -152,7 +152,9 @@ class XyftController extends yii\web\Controller
     //获取各类型kj信息
     function getInfo($res, $type, $date)
     {
-        if(!is_array($res) || empty($res)){return false;}
+        if (!is_array($res) || empty($res)) {
+            return false;
+        }
         $info = '';
         //第一期3号的名次
         $ranking = $this->findRanking($res[0], $type);
@@ -272,15 +274,17 @@ class XyftController extends yii\web\Controller
         $date = date('H') < 13 ? date('Y-m-d', strtotime('-1 days')) : date("Y-m-d");
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : $date;
         $res = $this->getKjRes($date);
-        $two = $this->getInfo($res,2, $date);
-        $three = $this->getInfo($res,3, $date);
-        $seven = $this->getInfo($res,7, $date);
-        $ten = $this->getInfo($res,10, $date);
+        $two = $this->getInfo($res, 2, $date);
+        $three = $this->getInfo($res, 3, $date);
+        $seven = $this->getInfo($res, 7, $date);
+        $ten = $this->getInfo($res, 10, $date);
 
         //冠军1-6号
         $oneLessThanSix = $this->LessThanSix($res);
         //冠军为上一期的1-6名
         $championOneToSix = $this->oneToSix($res);
+        //7-10 名买上期的7-10名
+        $sevenToTen = $this->sevenToTen($res);
         return $this->render('chance', [
             'date' => $date,
             'two' => $two,
@@ -289,6 +293,7 @@ class XyftController extends yii\web\Controller
             'ten' => $ten,
             'oneLessThanSix' => $oneLessThanSix,
             'championOneToSix' => $championOneToSix,
+            'sevenToTen' => $sevenToTen,
         ]);
     }
 
@@ -342,6 +347,52 @@ class XyftController extends yii\web\Controller
             $sixNumberArr[] = $data['six'];
 
             return $sixNumberArr;
+        }
+        return false;
+    }
+
+    public function actionSeven()
+    {
+
+        $res = $this->getKjRes();
+        $base = 1;
+        $totalProfit = 0;
+        $resourceStage = 1;
+        $stageCount = count($res);
+        $residueKeys = [];
+        $prevSevenToTenRes = $this->getSevenToTenNumber($res[0],$residueKeys);
+        $returnString = '第1期7-10名：' . implode(',', $prevSevenToTenRes) . '<br>';
+        for ($i = 1; $i < $stageCount; $i++) {
+            $currentRes = $this->getSevenToTenNumber($res[$i],$residueKeys);
+            foreach ($currentRes as $key => $val) {
+                if (in_array($val, $prevSevenToTenRes)) {
+                    $residueKeys[] = $key;
+                    if(count($residueKeys) == 4){
+                        $residueKeys = [];
+
+                    }
+                }
+            }
+
+        }
+        return $returnString;
+    }
+
+    function getSevenToTenNumber($data, $keys = [])
+    {
+        if (is_array($data) && !empty($data)) {
+
+            $sevenToTenNumberArr = [];
+            $sevenToTenNumberArr['seven'] = isset($data['seven']) && $data['seven'] ? $data['seven'] : '';
+            $sevenToTenNumberArr['eight'] = isset($data['eight']) && $data['eight'] ? $data['eight'] : '';
+            $sevenToTenNumberArr['nine'] = isset($data['nine']) && $data['nine'] ? $data['nine'] : '';
+            $sevenToTenNumberArr['ten'] = isset($data['ten']) && $data['ten'] ? $data['ten'] : '';
+            if (!empty($keys)) {
+                foreach ($keys as $val) {
+                    unset($sevenToTenNumberArr[$val]);
+                }
+            }
+            return $sevenToTenNumberArr;
         }
         return false;
     }
