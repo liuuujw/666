@@ -33,7 +33,6 @@ $this->registerCssFile('/css/chance.css');
             </div>
         </div>
     </div>
-    <div style="margin-top: 40px;"></div>
     <div class="row">
         <div class="col-md-6">
             <p>7号下期单</p>
@@ -49,7 +48,20 @@ $this->registerCssFile('/css/chance.css');
             </div>
         </div>
     </div>
-    <div style="margin-top: 40px;"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>冠军1-6号</p>
+            <div class="content">
+                <?= $oneLessThanSix ?>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p>冠军为上一期的1-6名</p>
+            <div class="content">
+                <?= $championOneToSix ?>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php

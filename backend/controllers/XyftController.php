@@ -149,23 +149,11 @@ class XyftController extends yii\web\Controller
         return false;
     }
 
-
-    public function actionOwn()
-    {
-        header("Content-type:text/html; charset=utf-8");
-
-        $type = Yii::$app->request->get('type') ? Yii::$app->request->get('type') : 3;
-        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
-        $info = $this->getInfo($type, $date);
-        echo $info;
-        die;
-    }
-
     //获取各类型kj信息
-    function getInfo($type, $date)
+    function getInfo($res, $type, $date)
     {
+        if(!is_array($res) || empty($res)){return false;}
         $info = '';
-        $res = $this::getKjRes($date);
         //第一期3号的名次
         $ranking = $this->findRanking($res[0], $type);
         //kj总期数
@@ -281,20 +269,81 @@ class XyftController extends yii\web\Controller
     public function actionChance()
     {
 
-        $date = date('H') < 13 ? date('Y-m-d',strtotime('-1 days')) : date("Y-m-d");
+        $date = date('H') < 13 ? date('Y-m-d', strtotime('-1 days')) : date("Y-m-d");
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : $date;
-        $two = $this->getInfo(2, $date);
-        $three = $this->getInfo(3, $date);
-        $seven = $this->getInfo(7, $date);
-        $ten = $this->getInfo(10, $date);
+        $res = $this->getKjRes($date);
+        $two = $this->getInfo($res,2, $date);
+        $three = $this->getInfo($res,3, $date);
+        $seven = $this->getInfo($res,7, $date);
+        $ten = $this->getInfo($res,10, $date);
 
+        //冠军1-6号
+        $oneLessThanSix = $this->LessThanSix($res);
+        //冠军为上一期的1-6名
+        $championOneToSix = $this->oneToSix($res);
         return $this->render('chance', [
             'date' => $date,
             'two' => $two,
             'three' => $three,
             'seven' => $seven,
-            'ten' => $ten
+            'ten' => $ten,
+            'oneLessThanSix' => $oneLessThanSix,
+            'championOneToSix' => $championOneToSix,
         ]);
+    }
+
+    function LessThanSix($res)
+    {
+        if (empty($res)) {
+            return false;
+        }
+        $resString = '';
+        $partition = 0;
+        foreach ($res as $key => $val) {
+            if ($val['one'] < 7) {
+                $resString .= '第' . ($key + 1) . '期：' . $val['one'] . '  相隔:' . $partition . '期 <br />';
+                $partition = 0;
+            } else {
+                $partition += 1;
+            }
+        }
+        return $resString;
+    }
+
+    function oneToSix($res)
+    {
+        $string = '';
+        $partition = 0;
+        $stageCount = count($res);
+        $prevSixNumber = $this->getSixNumberInArray($res[0]);
+        $string .= '第1期：' . $res[0]['one'] . '<br>';
+        for ($i = 1; $i < $stageCount; $i++) {
+            if (in_array($res[$i]['one'], $prevSixNumber)) {
+                $prevSixNumberString = implode(',', $prevSixNumber);
+                $string .= '第' . ($i + 1) . '期：' . $res[$i]['one'] . '  相隔:' . $partition . '期,上期开奖号码：' . $prevSixNumberString . ' <br />';
+                $prevSixNumber = $this->getSixNumberInArray($res[$i]);
+                $partition = 0;
+            } else {
+                $partition += 1;
+            }
+        }
+        return $string;
+    }
+
+    function getSixNumberInArray($data)
+    {
+        if (is_array($data) && !empty($data)) {
+            $sixNumberArr = [];
+            $sixNumberArr[] = $data['one'];
+            $sixNumberArr[] = $data['two'];
+            $sixNumberArr[] = $data['three'];
+            $sixNumberArr[] = $data['four'];
+            $sixNumberArr[] = $data['five'];
+            $sixNumberArr[] = $data['six'];
+
+            return $sixNumberArr;
+        }
+        return false;
     }
 
 }
