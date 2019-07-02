@@ -392,9 +392,8 @@ class XyftController extends yii\web\Controller
             }
             //拼接显示字符串
             $returnString .= '第' . ($i + 1) . '期:' . implode(',', $currentStageRes) . ',';
-            $returnString .= '中（ ' . substr($winNumberString, 1) . ' ）';
+            $returnString .= '中（ ' . substr($winNumberString, 1) . ' ）【'.$winNumber.'个】';
             $returnString .= '，参考' . $resourceStage . '期' . $resourceStageResString;
-            $returnString .= ",中 $winNumber 个";
             $returnString .= '<br>';
             if (count($prevSevenToTenRes) == 0) {
 //                换期
