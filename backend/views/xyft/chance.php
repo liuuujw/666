@@ -62,14 +62,14 @@ $this->registerCssFile('/css/chance.css');
             </div>
         </div>
     </div>
-    <!--<div class="row">
+    <div class="row">
         <div class="col-md-6">
-            <p>7-10名为上期的7-10名</p>
+            <p>买7-10名</p>
             <div class="content">
-                <?/*= $sevenToTen */?>
+                <?= $sevenToTen ?>
             </div>
         </div>
-    </div>-->
+    </div>
 </div>
 
 <?php

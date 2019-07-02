@@ -163,7 +163,7 @@ class XyftController extends yii\web\Controller
         //相隔期数
         $partition = 0;
 
-        $info = '期数：' . 1 . ',第' . $this->transformNumber($ranking) . '名<br>';
+        $info = '期数：' . 1 . ',第' . $this->transFromNumber($ranking) . '名<br>';
         for ($i = 1; $i < $stageCount; $i++) {
 
             if (!isset($res[$i][$ranking])) {
@@ -174,7 +174,7 @@ class XyftController extends yii\web\Controller
             //下一次3号上面的号码
             if ($rule) {
                 //单数
-                $info .= '期数：' . ($i + 1) . '___中, 相隔' . $partition . '期,第' . $this->transformNumber($ranking) . '名<br>';
+                $info .= '期数：' . ($i + 1) . '___中, 相隔' . $partition . '期,第' . $this->transFromNumber($ranking) . '名<br>';
                 $partition = 0;
                 $ranking = $this->findRanking($res[$i], $type);
             } else {
@@ -217,7 +217,7 @@ class XyftController extends yii\web\Controller
     }
 
     //名次英文转数字
-    function transformNumber($enNumber)
+    function transFromNumber($enNumber)
     {
         switch ($enNumber) {
             case 'one':
@@ -351,31 +351,58 @@ class XyftController extends yii\web\Controller
         return false;
     }
 
-    public function actionSeven()
+    function sevenToTen($res)
     {
 
-        $res = $this->getKjRes();
-        $base = 1;
-        $totalProfit = 0;
-        $resourceStage = 1;
+        $totalProfit = 0;   //总盈亏
+        $base = 1;          //翻倍系数
+        $resourceStage = 1; //参考期数
         $stageCount = count($res);
         $residueKeys = [];
-        $prevSevenToTenRes = $this->getSevenToTenNumber($res[0],$residueKeys);
+        $payNumberCount = 0;    //买的号码个数
+        $prevSevenToTenRes = $this->getSevenToTenNumber($res[0], $residueKeys);
         $returnString = '第1期7-10名：' . implode(',', $prevSevenToTenRes) . '<br>';
         for ($i = 1; $i < $stageCount; $i++) {
-            $currentRes = $this->getSevenToTenNumber($res[$i],$residueKeys);
+
+            $changeStage = false; //是否更换参考期数
+            $winNumber = '';    //7-10中奖号码
+            $baseMoney = 1;    //基础金额
+            $winCount = 0;     //7-10名中奖个数
+
+            $payMoney = $baseMoney * $base * (4 - $payNumberCount) * 4;      //下注金额
+            $currentRes = $this->getSevenToTenNumber($res[$i], $residueKeys);
             foreach ($currentRes as $key => $val) {
                 if (in_array($val, $prevSevenToTenRes)) {
+                    //开奖结果是上一期中的任意一个
                     $residueKeys[] = $key;
-                    if(count($residueKeys) == 4){
-                        $residueKeys = [];
-
+                    //中奖个数+1
+                    $winCount += 1;
+                    $payNumberCount += 1;
+                    $winNumber .= 'No.' . $this->transFromNumber($key) . '=>' .$val . ',';
+                    if (count($residueKeys) == 4) {
+                        $changeStage = true;
                     }
                 }
             }
+            $winMoney = $baseMoney * $base * 97 * $winCount / 10;           //中奖金额
+            $totalProfit += $winMoney - $payMoney;
+            $returnString .= '第' . ($i + 1) . '期：' . $winNumber;
+            $returnString .= '__参考' . $resourceStage . '期:' . implode(',', $prevSevenToTenRes) . '__';
+            $returnString .= '中' . $winCount . '个';
+            $returnString .= '下注：￥' . $payMoney . ',中奖：￥' . $winMoney;
+            $returnString .= '<br>';
+            $base *= 2;
+
+            if ($changeStage == true) {
+                $base = 1;
+                $payNumberCount = 0;
+                $residueKeys = [];
+                $resourceStage = $i + 1;
+                $prevSevenToTenRes = $this->getSevenToTenNumber($res[$i], $residueKeys);
+            }
 
         }
-        return $returnString;
+        return $returnString . '总盈亏：￥' . $totalProfit;
     }
 
     function getSevenToTenNumber($data, $keys = [])
