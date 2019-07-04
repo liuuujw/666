@@ -73,7 +73,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
+        echo phpinfo();
+        die;
 //        $_browser = "";
 //        if (strpos($_SERVER['HTTP_USER_AGENT'], 'iphone') || strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') || strpos($_SERVER['HTTP_USER_AGENT'], 'ipod') || strpos($_SERVER['HTTP_USER_AGENT'], 'ipad')) {
 //            $_browser = 'iphone';
@@ -84,7 +85,6 @@ class SiteController extends Controller
 //        if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|iphone|ipad|ipod|android|xoom)/i', strtolower($_SERVER['HTTP_USER_AGENT']))) {
 //            header("location:http://wap.dchcn.com/");
 //        }
-        echo 'a';die;
         return $this->redirect('/bookcenter');
         return $this->render('index');
     }
