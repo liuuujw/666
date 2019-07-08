@@ -283,8 +283,7 @@ class XyftController extends yii\web\Controller
         $oneLessThanSix = $this->LessThanSix($res);
         //冠军为上一期的1-6名
         $championOneToSix = $this->oneToSix($res);
-        //7-10 名买上期的7-10名
-        $sevenToTen = $this->sevenToTen($res);
+
         return $this->render('chance', [
             'date' => $date,
             'two' => $two,
@@ -293,7 +292,6 @@ class XyftController extends yii\web\Controller
             'ten' => $ten,
             'oneLessThanSix' => $oneLessThanSix,
             'championOneToSix' => $championOneToSix,
-            'sevenToTen' => $sevenToTen,
         ]);
     }
 
