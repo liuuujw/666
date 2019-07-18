@@ -16,7 +16,6 @@ class XyftController extends yii\web\Controller
         header("Content-type:text/html; charset=utf-8");
         $rank = Yii::$app->request->get('rank') ? Yii::$app->request->get('rank') : 'one';
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
-        $date = '2019-07-16';
         $res = $this::getKjRes($date);
         $count = count($res);
         $oneArray = [];
