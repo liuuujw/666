@@ -14,24 +14,35 @@ class XyftController extends yii\web\Controller
     public function actionIndex()
     {
         header("Content-type:text/html; charset=utf-8");
-        $res = $this::getKjRes();
+        $rank = Yii::$app->request->get('rank') ? Yii::$app->request->get('rank') : 'one';
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
+        $date = '2019-07-16';
+        $res = $this::getKjRes($date);
         $count = count($res);
         $oneArray = [];
+        $returnRes = [];
         $stageCount = 0;
         for ($i = 0; $i < $count; $i++) {
-            if (!isset($res[$i]['one'])) {
-                echo $i;
-                continue;
-            }
-            $one = $res[$i]['one'];
-            $guess = implode(',', $this->getFiveRandNumber());
+
+            $result = [];
+
             $stageCount++;
-            $oneArray[] = $one;
-            echo '第' . substr($res[$i]['stage'], 8) . '期开奖：' . $one;
-            echo '<br>';
-            echo '前' . $stageCount . '期:&nbsp;&nbsp;&nbsp;&nbsp;';
+            $oneArray[] = $res[$i][$rank];
+
+            $result['stageCount'] = $stageCount;    //总期数
+            $result['stage'] = substr($res[$i]['stage'], 8);  //期数
+            $result['kjRes'] = $res[$i][$rank];   //开奖结果
+
+            //统计每个号码的个数
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
+            $result['chance'] = $chanceArray;
+
+            $returnRes[] = $result;
+
+            /*echo '第' . substr($res[$i]['stage'], 8) . '期开奖：' . $res[$i][$rank];
+            echo '<br>';
+            echo '前' . $stageCount . '期:&nbsp;&nbsp;&nbsp;&nbsp;';
             foreach ($chanceArray as $k => $v) {
                 $str = $k . ':' . number_format($v / $stageCount, 2) * 100 . '%;&nbsp;&nbsp;';
                 if ($res[$i]['one'] == $k) {
@@ -40,9 +51,10 @@ class XyftController extends yii\web\Controller
                     echo $str;
                 }
             }
-            echo '<br>';
+            echo '<br>';*/
         }
-        die;
+        return $this->render('index', ['data' => $returnRes]);
+
     }
 
     public function actionAdd()
@@ -163,6 +175,19 @@ class XyftController extends yii\web\Controller
         //相隔期数
         $partition = 0;
 
+        /*
+         * @param $baseMoney  下注初始金额
+         * @param $double 翻倍数
+         * @param $totalPayMoney 下注总金额
+         * @param $totalWinMoney 中奖总金额
+         * @param $maxPayMoney 最大下注金额
+         */
+        $baseMoney = 20;
+        $double = 1;
+        $totalPayMoney = 0;
+        $totalWinMoney = 0;
+        $maxPayMoney = 0;
+
         $info = '期数：' . 1 . ',第' . $this->transFromNumber($ranking) . '名<br>';
         for ($i = 1; $i < $stageCount; $i++) {
 
@@ -170,19 +195,37 @@ class XyftController extends yii\web\Controller
                 echo $i;
                 die;
             }
+
+            //下注金额, 下注总金额,最大下注金额
+            $payMoney = $baseMoney * $double;
+            $totalPayMoney += $payMoney;
+            $maxPayMoney = ($payMoney > $maxPayMoney) ? $payMoney : $maxPayMoney;
+
             $rule = $this->getRuleResult($res[$i][$ranking], $type);
             //下一次3号上面的号码
             if ($rule) {
+
+                //中奖、中奖总额、盈利,
+                $winMoney = $payMoney * 197 / 100;
+                $totalWinMoney += $winMoney;
+                $profit = $winMoney - $payMoney;
+
                 //单数
-                $info .= '期数：' . ($i + 1) . '___中, 相隔' . $partition . '期,第' . $this->transFromNumber($ranking) . '名<br>';
+                $info .= '期数：' . ($i + 1) . '中, 相隔' . $partition . '期,第' . $this->transFromNumber($ranking) . '名____';
+                $info .= PHP_EOL;
+                $info .= '下注：￥' . $payMoney . ',中奖：￥' . $winMoney . ',盈利：￥' . $profit;
+                $info .= '<br>';
                 $partition = 0;
+                $double = 1;
                 $ranking = $this->findRanking($res[$i], $type);
             } else {
                 //双数
                 $partition += 1;
+                $double *= 2;
             }
 
         }
+        $info .= PHP_EOL . "下注初始金额：￥ $baseMoney ，最大下注金额：￥{$maxPayMoney}，下注总额：￥ $totalPayMoney ，中奖总额：￥ $totalWinMoney";
         return $info;
     }
 
@@ -390,7 +433,7 @@ class XyftController extends yii\web\Controller
             }
             //拼接显示字符串
             $returnString .= '第' . ($i + 1) . '期:' . implode(',', $currentStageRes) . ',';
-            $returnString .= '中（ ' . substr($winNumberString, 1) . ' ）【'.$winNumber.'个】';
+            $returnString .= '中（ ' . substr($winNumberString, 1) . ' ）【' . $winNumber . '个】';
             $returnString .= '，参考' . $resourceStage . '期' . $resourceStageResString;
             $returnString .= '<br>';
             if (count($prevSevenToTenRes) == 0) {
@@ -427,6 +470,51 @@ class XyftController extends yii\web\Controller
             return $data;
         }
         return false;
+    }
+
+
+    public function actionThreenextsingle()
+    {
+
+        $res = $this->getKjRes();
+        $count = count($res);
+
+        $threeRank = $this->getThreeRank($res[0]);
+
+
+        $winCount = 0;
+        $string = "第1期：第" . $this->transFromNumber($threeRank) . "名：3号";
+
+        for ($i = 1; $i < $count; $i++) {
+            if (isset($res[$i][$threeRank]) && $res[$i][$threeRank]) {
+                $isWin = false;
+                if ($res[$i][$threeRank] % 2 !== 0) {
+                    //单数
+                    $winCount += 1;
+                    $isWin = true;
+                }
+                $string .= "第" . ($i + 1) . "期：第" . $this->transFromNumber($threeRank) . "名：{$res[$i][$threeRank]}号，";
+                $threeRank = $this->getThreeRank($res[$i]);
+                $string .= "第" . ($i + 1) . "期：第" . $this->transFromNumber($threeRank) . "名：3号，" . ($isWin == true ? '中,' : '');
+                $string .= '<br>';
+
+            }
+        }
+        echo $string . '中奖期数:' . $winCount;
+
+
+        die;
+    }
+
+    function getThreeRank($res)
+    {
+        $rank = '';
+        foreach ($res as $k => $v) {
+            if ($v == 3) {
+                $rank = $k;
+            }
+        }
+        return $rank;
     }
 
 }

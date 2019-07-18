@@ -30,13 +30,14 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
+        /*'brandLabel' => Yii::$app->name,
+        'brandUrl' => Yii::$app->homeUrl,*/
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
+    $menuItems = [];
+    /*$menuItems = [
         ['label' => 'Home', 'url' => ['/index']],
     ];
     if (Yii::$app->user->isGuest) {
@@ -53,7 +54,7 @@ AppAsset::register($this);
     }
     $menuItems[] = [
         'label' => 'Register', 'url' => ['/site/register'],
-    ];
+    ];*/
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
