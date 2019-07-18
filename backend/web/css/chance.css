@@ -68,3 +68,7 @@ table tr td {
 .num_10 {
     background-color: #57ba37;
 }
+
+.rank-btn-div a{
+    margin: 5px;
+}

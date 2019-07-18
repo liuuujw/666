@@ -52,9 +52,52 @@ class XyftController extends yii\web\Controller
             }
             echo '<br>';*/
         }
-        return $this->render('index', ['data' => $returnRes]);
+        return $this->render('index', [
+            'data' => $returnRes,
+            'rank' => $rank,
+        ]);
 
     }
+
+
+    public function actionOverview()
+    {
+        header("Content-type:text/html; charset=utf-8");
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
+        $res = $this::getKjRes($date);
+        $count = count($res);
+        $oneArray = [];
+        $returnRes = [];
+        $stageCount = 0;
+        $rank = [];
+        $rankDesc = Yii::$app->params['xyftRank'] ? Yii::$app->params['xyftRank'] : '';
+        foreach ($rankDesc as $k => $v) {
+            $rank[] = $k;
+        }
+        for ($i = 0; $i < $count; $i++) {
+
+            $stageCount++;
+            foreach ($rank as $r) {
+                $result = [];
+                $oneArray[$r][] = $res[$i][$r];
+                $chanceArray = array_count_values($oneArray[$r]);
+                arsort($chanceArray);
+                $result['chance'] = $chanceArray;
+                $result['stageCount'] = $stageCount;    //总期数
+                $result['stage'] = substr($res[$i]['stage'], 8);  //期数
+                $result['kjRes'] = $res[$i][$r];   //开奖结果
+                if ($i == ($count - 1)) {
+                    $result['rankDesc'] = '第' . $this->transFromNumber($r) . '名';
+                    $returnRes[$r] = $result;
+                }
+            }
+        }
+        return $this->render('overview', [
+            'data' => $returnRes,
+            'rank' => 'all',
+        ]);
+    }
+
 
     public function actionAdd()
     {

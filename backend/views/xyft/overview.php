@@ -14,11 +14,11 @@ $this->registerCssFile('/css/chance.css');
                 foreach(Yii::$app->params['xyftRank'] as $key=>$val){
                     ?>
                     <a class="btn <?= ($key == $rank) ? 'btn-danger' : 'btn-success' ?>" href="/xyft?rank=<?= $key ?>" role="button"><?= $val['rankDesc'] ?></a>
-            <?php
+                    <?php
                 }
             }
             ?>
-<!--            <a class="btn --><?//= ($rank == 'all') ? 'btn-danger' : 'btn-success' ?><!--" href="/xyft/overview" role="button">总览</a>-->
+            <a class="btn <?= ($rank == 'all') ? 'btn-danger' : 'btn-success' ?>" href="/xyft/overview" role="button">总览</a>
         </div>
     </div>
 
@@ -30,6 +30,7 @@ $this->registerCssFile('/css/chance.css');
                     foreach ($data as $key => $val) {
                         ?>
                         <tr>
+                            <td colspan="3" style="line-height: 28px;"><?= $val['rankDesc'] ?></td>
                             <td colspan="3" style="line-height: 28px;">第<?= $val['stage'] ?>期</td>
                             <td>
                                 <span class="number num_<?= $val['kjRes'] ?> "> <?= $val['kjRes'] ?> </span>
