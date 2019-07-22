@@ -19,6 +19,20 @@ $this->registerCssFile('/css/chance.css');
                 </form>
             </div>
         </div>
+        <?php
+         if($tenNumberStage !== ''){
+             ?>
+             <div class="row">
+                 <div class="col-md-12">
+                     <p>10个号码出齐期数：<?= $tenNumberStage ?></p>
+                     <p>热门号码总数：<?= $hotNumberCount ?></p>
+                     <p>冷门号码总数：<?= $coolNumberCount ?></p>
+                 </div>
+             </div>
+             <?php
+         }
+        ?>
+
         <div class="row">
             <div class="col-md-12 rank-btn-div">
                 <?php

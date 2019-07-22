@@ -22,6 +22,10 @@ class XyftController extends yii\web\Controller
         $oneArray = [];
         $returnRes = [];
         $stageCount = 0;
+
+        $hotNumberCount = 0;
+        $coolNumberCount = 0;
+        $tenNumberStage = '';
         for ($i = 0; $i < $count; $i++) {
 
             $result = [];
@@ -36,6 +40,17 @@ class XyftController extends yii\web\Controller
             //统计每个号码的个数
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
+            if(count($chanceArray) == 10){
+                //出齐10个号码，统计冷热数量
+                $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
+                $keyArr = array_keys($chanceArray);
+                $numberRank = array_keys($keyArr, $result['kjRes']);
+                if($numberRank[0] < 5){
+                    $hotNumberCount += 1;
+                }else{
+                    $coolNumberCount += 1;
+                }
+            }
             $result['chance'] = $chanceArray;
 
             $returnRes[] = $result;
@@ -54,6 +69,9 @@ class XyftController extends yii\web\Controller
             echo '<br>';*/
         }
         return $this->render('index', [
+            'hotNumberCount' => $hotNumberCount,
+            'coolNumberCount' => $coolNumberCount,
+            'tenNumberStage' => $tenNumberStage,
             'data' => $returnRes,
             'rank' => $rank,
             'date' => $date,
