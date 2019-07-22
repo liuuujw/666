@@ -48,5 +48,9 @@ $(function () {
             $(this).addClass('glyphicon-chevron-down');
         }
 
-    })
+    });
+
+    var interval = setInterval(function(){
+        window.location.reload();
+    },60000)
 });

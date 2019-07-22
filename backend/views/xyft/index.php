@@ -68,8 +68,10 @@ $this->registerCssFile('/css/chance.css');
                 <table class="table table-bordered">
                     <?php
                     $data = array_reverse($data);
+                    $count = 0;
                     if (isset($data) && $data) {
                         foreach ($data as $key => $val) {
+                            $count++;
                             ?>
                             <tr>
                                 <?php
@@ -99,6 +101,9 @@ $this->registerCssFile('/css/chance.css');
                                 </td>
                             </tr>
                             <?php
+                            if($count == 30){
+                                break;
+                            }
                         }
                     }
                     ?>
