@@ -6,10 +6,7 @@ $(function () {
         }
         window.location.href = '/xyft/chance?date=' + chooseDate;
     });
-});
 
-
-$(function () {
     $('#indexSearch').click(function () {
         var chooseDate = $('#date').val();
         if (chooseDate === '') {
@@ -18,4 +15,3 @@ $(function () {
         window.location.href = '/xyft?date=' + chooseDate;
     });
 });
-

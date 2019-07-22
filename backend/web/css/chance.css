@@ -72,3 +72,15 @@ table tr td {
 .rank-btn-div a{
     margin: 5px;
 }
+
+.stages{
+    word-wrap:break-word;
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}

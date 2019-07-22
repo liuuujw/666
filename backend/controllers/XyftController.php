@@ -23,13 +23,17 @@ class XyftController extends yii\web\Controller
         $returnRes = [];
         $stageCount = 0;
 
-        $hotNumberCount = 0;
-        $coolNumberCount = 0;
-        $tenNumberStage = '';
+        $hotNumberCount = 0;        //热门号码总数
+        $coolNumberCount = 0;       //冷门号码总数
+        $tenNumberStage = '';       //开出10个号码期数
+        $prevTenNumberChance = [];
+
+        $hotStage = [];
+        $coolStage = [];
+
+        $isBegin = false;
         for ($i = 0; $i < $count; $i++) {
-
             $result = [];
-
             $stageCount++;
             $oneArray[] = $res[$i][$rank];
 
@@ -43,35 +47,31 @@ class XyftController extends yii\web\Controller
             if(count($chanceArray) == 10){
                 //出齐10个号码，统计冷热数量
                 $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
-                $keyArr = array_keys($chanceArray);
-                $numberRank = array_keys($keyArr, $result['kjRes']);
-                if($numberRank[0] < 5){
-                    $hotNumberCount += 1;
-                }else{
-                    $coolNumberCount += 1;
+                if(count($prevTenNumberChance) != 0){
+                    $keyArr = array_keys($prevTenNumberChance);
+                    $numberRank = array_keys($keyArr, $result['kjRes']);
+                    if($numberRank[0] < 5 && $isBegin == true){
+                        //热门号码
+                        $hotNumberCount += 1;
+                        $hotStage[] = $result['stage'];
+                    }else{
+                        //冷门号码
+                        $coolNumberCount += 1;
+                        $coolStage[] = $result['stage'];
+                    }
+                    $isBegin = true;
                 }
+                $prevTenNumberChance = $chanceArray;
             }
             $result['chance'] = $chanceArray;
-
             $returnRes[] = $result;
-
-            /*echo '第' . substr($res[$i]['stage'], 8) . '期开奖：' . $res[$i][$rank];
-            echo '<br>';
-            echo '前' . $stageCount . '期:&nbsp;&nbsp;&nbsp;&nbsp;';
-            foreach ($chanceArray as $k => $v) {
-                $str = $k . ':' . number_format($v / $stageCount, 2) * 100 . '%;&nbsp;&nbsp;';
-                if ($res[$i]['one'] == $k) {
-                    echo '<span style="color:#ff003c">' . $str . '</span>';
-                } else {
-                    echo $str;
-                }
-            }
-            echo '<br>';*/
         }
         return $this->render('index', [
             'hotNumberCount' => $hotNumberCount,
             'coolNumberCount' => $coolNumberCount,
             'tenNumberStage' => $tenNumberStage,
+            'hotStage' => $hotStage,
+            'coolStage' => $coolStage,
             'data' => $returnRes,
             'rank' => $rank,
             'date' => $date,
