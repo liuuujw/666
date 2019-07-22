@@ -14,8 +14,9 @@ class XyftController extends yii\web\Controller
     public function actionIndex()
     {
         header("Content-type:text/html; charset=utf-8");
+        $date = date('H') < 13 ? date('Y-m-d', strtotime('-1 days')) : date("Y-m-d");
         $rank = Yii::$app->request->get('rank') ? Yii::$app->request->get('rank') : 'one';
-        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : $date;
         $res = $this::getKjRes($date);
         $count = count($res);
         $oneArray = [];
@@ -55,6 +56,7 @@ class XyftController extends yii\web\Controller
         return $this->render('index', [
             'data' => $returnRes,
             'rank' => $rank,
+            'date' => $date,
         ]);
 
     }
@@ -253,9 +255,9 @@ class XyftController extends yii\web\Controller
                 $profit = $winMoney - $payMoney;
 
                 //单数
-                $info .= '期数：' . ($i + 1) . '中, 相隔' . $partition . '期,第' . $this->transFromNumber($ranking) . '名____';
-                $info .= PHP_EOL;
-                $info .= '下注：￥' . $payMoney . ',中奖：￥' . $winMoney . ',盈利：￥' . $profit;
+                $info .= '期数：' . ($i + 1) . '中, 相隔' . $partition . '期,第' . $this->transFromNumber($ranking) . '名';
+//                $info .= PHP_EOL;
+//                $info .= '下注：￥' . $payMoney . ',中奖：￥' . $winMoney . ',盈利：￥' . $profit;
                 $info .= '<br>';
                 $partition = 0;
                 $double = 1;
@@ -267,7 +269,7 @@ class XyftController extends yii\web\Controller
             }
 
         }
-        $info .= PHP_EOL . "下注初始金额：￥ $baseMoney ，最大下注金额：￥{$maxPayMoney}，下注总额：￥ $totalPayMoney ，中奖总额：￥ $totalWinMoney";
+//        $info .= PHP_EOL . "下注初始金额：￥ $baseMoney ，最大下注金额：￥{$maxPayMoney}，下注总额：￥ $totalPayMoney ，中奖总额：￥ $totalWinMoney";
         return $info;
     }
 

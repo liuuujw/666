@@ -10,7 +10,7 @@ class BaseController extends Controller
     public $menu = [];
     public $user = [];
 //    public $enableCsrfValidation = false;
-
+//['depends' => ['frontend\assets\AppAsset'], 'position' => $this::POS_HEAD]
     public function beforeAction($action)
     {
         $this->getModelName();
