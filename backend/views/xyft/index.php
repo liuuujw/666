@@ -43,24 +43,19 @@ $this->registerCssFile('/css/chance.css');
             ?>
             <div class="row">
                 <div class="col-md-12" style="margin-bottom: 10px;">
+                    <p>10个号码出齐期数：<?= $tenNumberStage ?></p>
+
                     <div>
                         <div class="stages-show-div">
-                            热门号码期数：<i class="glyphicon glyphicon-chevron-down"></i>
+                            热门号码总数： <?= $hotNumberCount ?>  <i class="glyphicon glyphicon-chevron-down"></i>
                             <p class="stages hide"><?= implode($hotStage, ',') ?> </p>
                         </div>
                         <div class="stages-show-div">
-                            冷门号码期数：<i class="glyphicon glyphicon-chevron-down"></i>
+                            冷门号码总数： <?= $coolNumberCount ?>  <i class="glyphicon glyphicon-chevron-down"></i>
                             <p class="stages hide"><?= implode($coolStage, ',') ?> </p>
                         </div>
                     </div>
 
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p>10个号码出齐期数：<?= $tenNumberStage ?></p>
-                    <p>热门号码总数：<?= $hotNumberCount ?></p>
-                    <p>冷门号码总数：<?= $coolNumberCount ?></p>
                 </div>
             </div>
             <?php
