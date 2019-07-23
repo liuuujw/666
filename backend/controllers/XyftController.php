@@ -28,8 +28,15 @@ class XyftController extends yii\web\Controller
         $tenNumberStage = '';       //开出10个号码期数
         $prevTenNumberChance = [];
 
+        //冷热号码期数
         $hotStage = [];
         $coolStage = [];
+
+        $hotLian = 0;
+        $coolLian = 0;
+
+        $maxHotLian = 0;
+        $maxCoolLian = 0;
 
         $isBegin = false;
         for ($i = 0; $i < $count; $i++) {
@@ -44,20 +51,26 @@ class XyftController extends yii\web\Controller
             //统计每个号码的个数
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
-            if(count($chanceArray) == 10){
-                //出齐10个号码，统计冷热数量
+            if (count($chanceArray) >= 5) {
+                //出齐5个号码，统计冷热数量
                 $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
-                if(count($prevTenNumberChance) != 0){
+                if (count($prevTenNumberChance) != 0) {
                     $keyArr = array_keys($prevTenNumberChance);
                     $numberRank = array_keys($keyArr, $result['kjRes']);
-                    if($numberRank[0] < 5 && $isBegin == true){
+                    if (isset($numberRank[0]) && $numberRank[0] < 5 && $isBegin == true) {
                         //热门号码
                         $hotNumberCount += 1;
                         $hotStage[] = $result['stage'];
-                    }else{
+                        $hotLian += 1;
+                        $maxHotLian = $hotLian > $maxHotLian ? $hotLian : $maxHotLian;
+                        $coolLian = 0;
+                    } else {
                         //冷门号码
                         $coolNumberCount += 1;
                         $coolStage[] = $result['stage'];
+                        $coolLian += 1;
+                        $maxCoolLian = $coolLian > $maxCoolLian ? $coolLian : $maxCoolLian;
+                        $hotLian = 0;
                     }
                     $isBegin = true;
                 }
@@ -72,6 +85,8 @@ class XyftController extends yii\web\Controller
             'tenNumberStage' => $tenNumberStage,
             'hotStage' => $hotStage,
             'coolStage' => $coolStage,
+            'maxHotLian' => $maxHotLian,
+            'maxCoolLian' => $maxCoolLian,
             'data' => $returnRes,
             'rank' => $rank,
             'date' => $date,

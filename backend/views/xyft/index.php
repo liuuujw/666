@@ -26,7 +26,7 @@ $this->registerCssFile('/css/chance.css');
                 if (isset(Yii::$app->params['xyftRank']) && Yii::$app->params['xyftRank']) {
                     foreach (Yii::$app->params['xyftRank'] as $key => $val) {
                         ?>
-                        <a class="btn <?= ($key == $rank) ? 'btn-danger' : 'btn-success' ?>"
+                        <a class="btn btn-xs <?= ($key == $rank) ? 'btn-danger' : 'btn-success' ?>"
                            data-value="/xyft?rank=<?= $key ?>" role="button"><?= $val['rankDesc'] ?></a>
                         <?php
                     }
@@ -47,11 +47,11 @@ $this->registerCssFile('/css/chance.css');
 
                     <div>
                         <div class="stages-show-div">
-                            热门号码总数： <?= $hotNumberCount ?>  <i class="glyphicon glyphicon-chevron-down"></i>
+                            热门号码总数： <?= $hotNumberCount ?> (最多连<?= $maxHotLian; ?>)  <i class="glyphicon glyphicon-chevron-down"></i>
                             <p class="stages hide"><?= implode($hotStage, ',') ?> </p>
                         </div>
                         <div class="stages-show-div">
-                            冷门号码总数： <?= $coolNumberCount ?>  <i class="glyphicon glyphicon-chevron-down"></i>
+                            冷门号码总数： <?= $coolNumberCount ?> (最多连<?= $maxCoolLian; ?>)  <i class="glyphicon glyphicon-chevron-down"></i>
                             <p class="stages hide"><?= implode($coolStage, ',') ?> </p>
                         </div>
                     </div>
@@ -101,9 +101,9 @@ $this->registerCssFile('/css/chance.css');
                                 </td>
                             </tr>
                             <?php
-                            if($count == 30){
-                                break;
-                            }
+//                            if($count == 30){
+//                                break;
+//                            }
                         }
                     }
                     ?>
