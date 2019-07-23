@@ -50,7 +50,7 @@ $(function () {
 
     });
 
-    var interval = setInterval(function(){
-        window.location.reload();
-    },60000)
+    // var interval = setInterval(function(){
+    //     window.location.reload();
+    // },60000)
 });
