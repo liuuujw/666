@@ -482,7 +482,7 @@ class XyftController extends yii\web\Controller
             $sixNumberArr[] = $data['three'];
             $sixNumberArr[] = $data['four'];
             $sixNumberArr[] = $data['five'];
-            $sixNumberArr[] = $data['six'];
+//            $sixNumberArr[] = $data['six'];
 
             return $sixNumberArr;
         }
@@ -592,6 +592,13 @@ class XyftController extends yii\web\Controller
             }
         }
         return $rank;
+    }
+
+
+    public function actionFive(){
+        $res = $this->getKjRes();
+        $res = $this->oneToSix($res);
+        echo $res;
     }
 
 }

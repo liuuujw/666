@@ -43,7 +43,7 @@ $this->registerCssFile('/css/chance.css');
             ?>
             <div class="row">
                 <div class="col-md-12" style="margin-bottom: 10px;">
-                    <p>10个号码出齐期数：<?= $tenNumberStage ?></p>
+                    <p>5个号码出齐期数：<?= $tenNumberStage ?></p>
 
                     <div>
                         <div class="stages-show-div">
