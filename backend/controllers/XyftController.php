@@ -596,7 +596,8 @@ class XyftController extends yii\web\Controller
 
 
     public function actionFive(){
-        $res = $this->getKjRes();
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
+        $res = $this->getKjRes($date);
         $res = $this->oneToSix($res);
         echo $res;
     }
