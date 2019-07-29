@@ -451,7 +451,7 @@ class XyftController extends yii\web\Controller
 //                $profit = $winMoney - $payMoney;
 //                $totalProfit += $profit;
                 $prevSixNumberString = implode(',', $prevSixNumber);
-                $string .= '第' . ($i + 1) . '期：' . $res[$i]['one'] . '  相隔:' . $partition . '期,上期开奖号码：' . $prevSixNumberString;
+                $string .= '第' . ($i + 1) . '期：' . $res[$i]['one'] . '  相隔:' . $partition . '期,上期：' . $prevSixNumberString;
                 /*$string .= '，下注总额：￥' . $payMoney;
                 $string .= '，中奖金额：￥' . $winMoney;
                 $string .= '，盈利：￥' . $profit;*/
