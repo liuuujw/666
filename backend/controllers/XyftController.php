@@ -446,15 +446,8 @@ class XyftController extends yii\web\Controller
         $string .= '第1期：' . $res[0]['one'] . '<br>';
         for ($i = 1; $i < $stageCount; $i++) {
             if (in_array($res[$i]['one'], $prevSixNumber)) {
-//                $payMoney += $baseMoney * ($base + 1) * 6;
-//                $winMoney = $baseMoney * ($base + 1) * 97 / 10;
-//                $profit = $winMoney - $payMoney;
-//                $totalProfit += $profit;
                 $prevSixNumberString = implode(',', $prevSixNumber);
                 $string .= '第' . ($i + 1) . '期：' . $res[$i]['one'] . '  相隔:' . $partition . '期,上期：' . $prevSixNumberString;
-                /*$string .= '，下注总额：￥' . $payMoney;
-                $string .= '，中奖金额：￥' . $winMoney;
-                $string .= '，盈利：￥' . $profit;*/
                 $string .= ' <br />';
                 $prevSixNumber = $this->getSixNumberInArray($res[$i]);
                 $partition = 0;
