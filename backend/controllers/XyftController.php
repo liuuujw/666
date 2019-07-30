@@ -599,7 +599,8 @@ class XyftController extends yii\web\Controller
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
         $res = $this->getKjRes($date);
         $res = $this->oneToSix($res);
-        echo $res;
+        echo $res; die;
+
     }
 
 }
