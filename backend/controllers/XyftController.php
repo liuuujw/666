@@ -28,8 +28,15 @@ class XyftController extends yii\web\Controller
         $tenNumberStage = '';       //开出10个号码期数
         $prevTenNumberChance = [];
 
+        //冷热号码期数
         $hotStage = [];
         $coolStage = [];
+
+        $hotLian = 0;
+        $coolLian = 0;
+
+        $maxHotLian = 0;
+        $maxCoolLian = 0;
 
         $isBegin = false;
         for ($i = 0; $i < $count; $i++) {
@@ -44,20 +51,38 @@ class XyftController extends yii\web\Controller
             //统计每个号码的个数
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
+<<<<<<< HEAD
             if (count($chanceArray) == 10) {
                 //出齐10个号码，统计冷热数量
+=======
+            if (count($chanceArray) >= 5) {
+                //出齐5个号码，统计冷热数量
+>>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
                 $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
                 if (count($prevTenNumberChance) != 0) {
                     $keyArr = array_keys($prevTenNumberChance);
                     $numberRank = array_keys($keyArr, $result['kjRes']);
+<<<<<<< HEAD
                     if ($numberRank[0] < 5 && $isBegin == true) {
                         //热门号码
                         $hotNumberCount += 1;
                         $hotStage[] = $result['stage'];
+=======
+                    if (isset($numberRank[0]) && $numberRank[0] < 5 && $isBegin == true) {
+                        //热门号码
+                        $hotNumberCount += 1;
+                        $hotStage[] = $result['stage'];
+                        $hotLian += 1;
+                        $maxHotLian = $hotLian > $maxHotLian ? $hotLian : $maxHotLian;
+                        $coolLian = 0;
+>>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
                     } else {
                         //冷门号码
                         $coolNumberCount += 1;
                         $coolStage[] = $result['stage'];
+                        $coolLian += 1;
+                        $maxCoolLian = $coolLian > $maxCoolLian ? $coolLian : $maxCoolLian;
+                        $hotLian = 0;
                     }
                     $isBegin = true;
                 }
@@ -72,6 +97,8 @@ class XyftController extends yii\web\Controller
             'tenNumberStage' => $tenNumberStage,
             'hotStage' => $hotStage,
             'coolStage' => $coolStage,
+            'maxHotLian' => $maxHotLian,
+            'maxCoolLian' => $maxCoolLian,
             'data' => $returnRes,
             'rank' => $rank,
             'date' => $date,
@@ -431,15 +458,8 @@ class XyftController extends yii\web\Controller
         $string .= '第1期：' . $res[0]['one'] . '<br>';
         for ($i = 1; $i < $stageCount; $i++) {
             if (in_array($res[$i]['one'], $prevSixNumber)) {
-//                $payMoney += $baseMoney * ($base + 1) * 6;
-//                $winMoney = $baseMoney * ($base + 1) * 97 / 10;
-//                $profit = $winMoney - $payMoney;
-//                $totalProfit += $profit;
                 $prevSixNumberString = implode(',', $prevSixNumber);
-                $string .= '第' . ($i + 1) . '期：' . $res[$i]['one'] . '  相隔:' . $partition . '期,上期开奖号码：' . $prevSixNumberString;
-                /*$string .= '，下注总额：￥' . $payMoney;
-                $string .= '，中奖金额：￥' . $winMoney;
-                $string .= '，盈利：￥' . $profit;*/
+                $string .= '第' . ($i + 1) . '期：' . $res[$i]['one'] . '  相隔:' . $partition . '期,上期：' . $prevSixNumberString;
                 $string .= ' <br />';
                 $prevSixNumber = $this->getSixNumberInArray($res[$i]);
                 $partition = 0;
@@ -467,7 +487,7 @@ class XyftController extends yii\web\Controller
             $sixNumberArr[] = $data['three'];
             $sixNumberArr[] = $data['four'];
             $sixNumberArr[] = $data['five'];
-            $sixNumberArr[] = $data['six'];
+//            $sixNumberArr[] = $data['six'];
 
             return $sixNumberArr;
         }
@@ -580,6 +600,7 @@ class XyftController extends yii\web\Controller
         return $rank;
     }
 
+<<<<<<< HEAD
     public function actionSixnumber()
     {
 
@@ -623,6 +644,14 @@ class XyftController extends yii\web\Controller
         }
 
         return $this->render('sixnumber', ['first'=>$firstRes, 'ten'=>$tenRes]);
+=======
+
+    public function actionFive(){
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
+        $res = $this->getKjRes($date);
+        $res = $this->oneToSix($res);
+        echo $res; die;
+>>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
 
     }
 
