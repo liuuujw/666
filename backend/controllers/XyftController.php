@@ -37,7 +37,6 @@ class XyftController extends yii\web\Controller
 
         $maxHotLian = 0;
         $maxCoolLian = 0;
-
         $isBegin = false;
         for ($i = 0; $i < $count; $i++) {
             $result = [];
@@ -51,9 +50,8 @@ class XyftController extends yii\web\Controller
             //统计每个号码的个数
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
-
-            if (count($chanceArray) == 10) {
-                //出齐10个号码，统计冷热数量
+            /*if (count($chanceArray) == 10) {
+                //出齐10个号码，统计冷热数量*/
 
                 if (count($chanceArray) >= 5) {
                     //出齐5个号码，统计冷热数量
@@ -91,21 +89,20 @@ class XyftController extends yii\web\Controller
                     $result['chance'] = $chanceArray;
                     $returnRes[] = $result;
                 }
-                return $this->render('index', [
-                    'hotNumberCount' => $hotNumberCount,
-                    'coolNumberCount' => $coolNumberCount,
-                    'tenNumberStage' => $tenNumberStage,
-                    'hotStage' => $hotStage,
-                    'coolStage' => $coolStage,
-                    'maxHotLian' => $maxHotLian,
-                    'maxCoolLian' => $maxCoolLian,
-                    'data' => $returnRes,
-                    'rank' => $rank,
-                    'date' => $date,
-                ]);
-
-            }
+//            }
         }
+        return $this->render('index', [
+            'hotNumberCount' => $hotNumberCount,
+            'coolNumberCount' => $coolNumberCount,
+            'tenNumberStage' => $tenNumberStage,
+            'hotStage' => $hotStage,
+            'coolStage' => $coolStage,
+            'maxHotLian' => $maxHotLian,
+            'maxCoolLian' => $maxCoolLian,
+            'data' => $returnRes,
+            'rank' => $rank,
+            'date' => $date,
+        ]);
     }
 
 
@@ -225,6 +222,7 @@ class XyftController extends yii\web\Controller
 
     public function actionGetres()
     {
+
         $string = file_get_contents('https://www.568kj1.com/ft/xyft.php');
         $preg = '/<span.*>(.*)<\/span>/isU';
         $numberPreg = '/<h2.*>(.*([0-9]{11}).*)<\/h2>/isU';
