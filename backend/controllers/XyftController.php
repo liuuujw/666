@@ -51,12 +51,23 @@ class XyftController extends yii\web\Controller
             //统计每个号码的个数
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
+<<<<<<< HEAD
+            if (count($chanceArray) == 10) {
+                //出齐10个号码，统计冷热数量
+=======
             if (count($chanceArray) >= 5) {
                 //出齐5个号码，统计冷热数量
+>>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
                 $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
                 if (count($prevTenNumberChance) != 0) {
                     $keyArr = array_keys($prevTenNumberChance);
                     $numberRank = array_keys($keyArr, $result['kjRes']);
+<<<<<<< HEAD
+                    if ($numberRank[0] < 5 && $isBegin == true) {
+                        //热门号码
+                        $hotNumberCount += 1;
+                        $hotStage[] = $result['stage'];
+=======
                     if (isset($numberRank[0]) && $numberRank[0] < 5 && $isBegin == true) {
                         //热门号码
                         $hotNumberCount += 1;
@@ -64,6 +75,7 @@ class XyftController extends yii\web\Controller
                         $hotLian += 1;
                         $maxHotLian = $hotLian > $maxHotLian ? $hotLian : $maxHotLian;
                         $coolLian = 0;
+>>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
                     } else {
                         //冷门号码
                         $coolNumberCount += 1;
@@ -547,14 +559,15 @@ class XyftController extends yii\web\Controller
     public function actionThreenextsingle()
     {
 
+        $num = 7;
         $res = $this->getKjRes();
         $count = count($res);
 
-        $threeRank = $this->getThreeRank($res[0]);
+        $threeRank = $this->getNumberRank($res[0], $num);
 
 
         $winCount = 0;
-        $string = "第1期：第" . $this->transFromNumber($threeRank) . "名：3号";
+        $string = "第1期：第" . $this->transFromNumber($threeRank) . "名：3号<br>";
 
         for ($i = 1; $i < $count; $i++) {
             if (isset($res[$i][$threeRank]) && $res[$i][$threeRank]) {
@@ -565,7 +578,7 @@ class XyftController extends yii\web\Controller
                     $isWin = true;
                 }
                 $string .= "第" . ($i + 1) . "期：第" . $this->transFromNumber($threeRank) . "名：{$res[$i][$threeRank]}号，";
-                $threeRank = $this->getThreeRank($res[$i]);
+                $threeRank = $this->getNumberRank($res[$i], $num);
                 $string .= "第" . ($i + 1) . "期：第" . $this->transFromNumber($threeRank) . "名：3号，" . ($isWin == true ? '中,' : '');
                 $string .= '<br>';
 
@@ -577,17 +590,18 @@ class XyftController extends yii\web\Controller
         die;
     }
 
-    function getThreeRank($res)
+    function getNumberRank($res, $num)
     {
         $rank = '';
         foreach ($res as $k => $v) {
-            if ($v == 3) {
+            if ($v == $num) {
                 $rank = $k;
             }
         }
         return $rank;
     }
 
+<<<<<<< HEAD
     function getAppointNumber($res, $start = 1, $end = 5)
     {
         if (is_array($res) && $res != []) {
@@ -600,12 +614,60 @@ class XyftController extends yii\web\Controller
         }
         return false;
     }
+=======
+<<<<<<< HEAD
+    public function actionSixnumber()
+    {
+
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : "";
+        $res = $this->getKjRes($date);
+        $resourceNum = [1, 2, 4, 7, 9, 10];
+
+        //相隔
+        $firstPartition = 0;
+        $tenPartition = 0;
+
+        $firstRes = [];
+        $tenRes = [];
+
+        foreach($res as $key => $val){
+            $first = $val['one'];
+            $ten = $val['ten'];
+
+            if(in_array($val['one'], $resourceNum)){
+                $arr['stage'] = substr($val['stage'],8);
+                $arr['partition'] = $firstPartition;
+                $arr['kj'] = $val['one'];
+
+                $firstRes[] = $arr;
+                $firstPartition = 0;
+            }else{
+                $firstPartition += 1;
+            }
+
+            if(in_array($val['ten'], $resourceNum)){
+                $arr['stage'] = substr($val['stage'],8);
+                $arr['partition'] = $tenPartition;
+                $arr['kj'] = $val['ten'];
+
+                $tenRes[] = $arr;
+                $tenPartition = 0;
+            }else{
+                $tenPartition += 1;
+            }
+
+        }
+
+        return $this->render('sixnumber', ['first'=>$firstRes, 'ten'=>$tenRes]);
+=======
+>>>>>>> 872f8c118b450d9f949e99ff3f9bc7c72af67b8b
 
     public function actionFive()
     {
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
         $rank = Yii::$app->request->get('rank') ? Yii::$app->request->get('rank') : 'one';
         $res = $this->getKjRes($date);
+<<<<<<< HEAD
         $totalStage = count($res);
 
         $prevNumber = $this->getAppointNumber($res[0]); //上一期前N名
@@ -628,6 +690,12 @@ class XyftController extends yii\web\Controller
             'data'=>array_reverse($res),
             'rank' => $rank
         ]);
+=======
+        $res = $this->oneToSix($res);
+        echo $res; die;
+>>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
+
+>>>>>>> 872f8c118b450d9f949e99ff3f9bc7c72af67b8b
     }
 
 }
