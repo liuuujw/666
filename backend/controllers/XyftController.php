@@ -51,59 +51,61 @@ class XyftController extends yii\web\Controller
             //统计每个号码的个数
             $chanceArray = array_count_values($oneArray);
             arsort($chanceArray);
-<<<<<<< HEAD
+
             if (count($chanceArray) == 10) {
                 //出齐10个号码，统计冷热数量
-=======
-            if (count($chanceArray) >= 5) {
-                //出齐5个号码，统计冷热数量
->>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
-                $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
-                if (count($prevTenNumberChance) != 0) {
-                    $keyArr = array_keys($prevTenNumberChance);
-                    $numberRank = array_keys($keyArr, $result['kjRes']);
-<<<<<<< HEAD
-                    if ($numberRank[0] < 5 && $isBegin == true) {
-                        //热门号码
-                        $hotNumberCount += 1;
-                        $hotStage[] = $result['stage'];
-=======
-                    if (isset($numberRank[0]) && $numberRank[0] < 5 && $isBegin == true) {
-                        //热门号码
-                        $hotNumberCount += 1;
-                        $hotStage[] = $result['stage'];
-                        $hotLian += 1;
-                        $maxHotLian = $hotLian > $maxHotLian ? $hotLian : $maxHotLian;
-                        $coolLian = 0;
->>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
-                    } else {
-                        //冷门号码
-                        $coolNumberCount += 1;
-                        $coolStage[] = $result['stage'];
-                        $coolLian += 1;
-                        $maxCoolLian = $coolLian > $maxCoolLian ? $coolLian : $maxCoolLian;
-                        $hotLian = 0;
-                    }
-                    $isBegin = true;
-                }
-                $prevTenNumberChance = $chanceArray;
-            }
-            $result['chance'] = $chanceArray;
-            $returnRes[] = $result;
-        }
-        return $this->render('index', [
-            'hotNumberCount' => $hotNumberCount,
-            'coolNumberCount' => $coolNumberCount,
-            'tenNumberStage' => $tenNumberStage,
-            'hotStage' => $hotStage,
-            'coolStage' => $coolStage,
-            'maxHotLian' => $maxHotLian,
-            'maxCoolLian' => $maxCoolLian,
-            'data' => $returnRes,
-            'rank' => $rank,
-            'date' => $date,
-        ]);
 
+                if (count($chanceArray) >= 5) {
+                    //出齐5个号码，统计冷热数量
+
+                    $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
+                    if (count($prevTenNumberChance) != 0) {
+                        $keyArr = array_keys($prevTenNumberChance);
+                        $numberRank = array_keys($keyArr, $result['kjRes']);
+
+                        if ($numberRank[0] < 5 && $isBegin == true) {
+                            //热门号码
+                            $hotNumberCount += 1;
+                            $hotStage[] = $result['stage'];
+
+                            if (isset($numberRank[0]) && $numberRank[0] < 5 && $isBegin == true) {
+                                //热门号码
+                                $hotNumberCount += 1;
+                                $hotStage[] = $result['stage'];
+                                $hotLian += 1;
+                                $maxHotLian = $hotLian > $maxHotLian ? $hotLian : $maxHotLian;
+                                $coolLian = 0;
+
+                            } else {
+                                //冷门号码
+                                $coolNumberCount += 1;
+                                $coolStage[] = $result['stage'];
+                                $coolLian += 1;
+                                $maxCoolLian = $coolLian > $maxCoolLian ? $coolLian : $maxCoolLian;
+                                $hotLian = 0;
+                            }
+                            $isBegin = true;
+                        }
+                        $prevTenNumberChance = $chanceArray;
+                    }
+                    $result['chance'] = $chanceArray;
+                    $returnRes[] = $result;
+                }
+                return $this->render('index', [
+                    'hotNumberCount' => $hotNumberCount,
+                    'coolNumberCount' => $coolNumberCount,
+                    'tenNumberStage' => $tenNumberStage,
+                    'hotStage' => $hotStage,
+                    'coolStage' => $coolStage,
+                    'maxHotLian' => $maxHotLian,
+                    'maxCoolLian' => $maxCoolLian,
+                    'data' => $returnRes,
+                    'rank' => $rank,
+                    'date' => $date,
+                ]);
+
+            }
+        }
     }
 
 
@@ -601,7 +603,6 @@ class XyftController extends yii\web\Controller
         return $rank;
     }
 
-<<<<<<< HEAD
     function getAppointNumber($res, $start = 1, $end = 5)
     {
         if (is_array($res) && $res != []) {
@@ -614,8 +615,7 @@ class XyftController extends yii\web\Controller
         }
         return false;
     }
-=======
-<<<<<<< HEAD
+
     public function actionSixnumber()
     {
 
@@ -630,72 +630,69 @@ class XyftController extends yii\web\Controller
         $firstRes = [];
         $tenRes = [];
 
-        foreach($res as $key => $val){
-            $first = $val['one'];
-            $ten = $val['ten'];
+        foreach ($res as $key => $val) {
 
-            if(in_array($val['one'], $resourceNum)){
-                $arr['stage'] = substr($val['stage'],8);
+            if (in_array($val['one'], $resourceNum)) {
+                $arr['stage'] = substr($val['stage'], 8);
                 $arr['partition'] = $firstPartition;
                 $arr['kj'] = $val['one'];
 
                 $firstRes[] = $arr;
                 $firstPartition = 0;
-            }else{
+            } else {
                 $firstPartition += 1;
             }
 
-            if(in_array($val['ten'], $resourceNum)){
-                $arr['stage'] = substr($val['stage'],8);
+            if (in_array($val['ten'], $resourceNum)) {
+                $arr['stage'] = substr($val['stage'], 8);
                 $arr['partition'] = $tenPartition;
                 $arr['kj'] = $val['ten'];
 
                 $tenRes[] = $arr;
                 $tenPartition = 0;
-            }else{
+            } else {
                 $tenPartition += 1;
             }
 
         }
 
-        return $this->render('sixnumber', ['first'=>$firstRes, 'ten'=>$tenRes]);
-=======
->>>>>>> 872f8c118b450d9f949e99ff3f9bc7c72af67b8b
+        return $this->render('sixnumber', ['first' => $firstRes, 'ten' => $tenRes]);
+    }
+
 
     public function actionFive()
     {
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
         $rank = Yii::$app->request->get('rank') ? Yii::$app->request->get('rank') : 'one';
         $res = $this->getKjRes($date);
-<<<<<<< HEAD
+
         $totalStage = count($res);
 
         $prevNumber = $this->getAppointNumber($res[0]); //上一期前N名
         $apart = 0;     //相隔期数
 
-        for ($i=1; $i<$totalStage; $i++) {
+        for ($i = 1; $i < $totalStage; $i++) {
             $openRes = $res[$i][$rank];     //开奖结果
-            if(in_array($openRes, $prevNumber)){
+            if (in_array($openRes, $prevNumber)) {
                 //在前N名
                 $res[$i]['apart'] = $apart;
                 $apart = 0;
-            }else{
+            } else {
                 //不在
                 $res[$i]['apart'] = 0;
                 $apart += 1;
             }
             $prevNumber = $this->getAppointNumber($res[$i]);
         }
-        return $this->render('appoint',[
-            'data'=>array_reverse($res),
+        return $this->render('appoint', [
+            'data' => array_reverse($res),
             'rank' => $rank
         ]);
-=======
-        $res = $this->oneToSix($res);
-        echo $res; die;
->>>>>>> f5746856be98533437a0443a6e47c86d95f39a84
 
->>>>>>> 872f8c118b450d9f949e99ff3f9bc7c72af67b8b
+        $res = $this->oneToSix($res);
+        echo $res;
+        die;
+
     }
 
 }
