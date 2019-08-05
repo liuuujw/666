@@ -380,6 +380,7 @@ class XyftController extends yii\web\Controller
             $date = (date('H') < 13) ? date('Y-m-d', strtotime('-1 days')) : date('Y-m-d');
         }
         $res = Xyft::find()
+            ->select('stage,one,two,three,four,five,six,seven,eight,nine,ten')
             ->Where(['kjdate' => $date])
             ->asArray()
             ->orderBy(['stage' => SORT_ASC])
@@ -587,13 +588,46 @@ class XyftController extends yii\web\Controller
         return $rank;
     }
 
+    function getAppointNumber($res, $start = 1, $end = 5)
+    {
+        if (is_array($res) && $res != []) {
+            $returnRes = [];
+            for ($i = $start; $i <= $end; $i++) {
+                $key = Yii::$app->params['ftNumberToEng'][$i];
+                $returnRes[] = $res[$key];
+            }
+            return $returnRes;
+        }
+        return false;
+    }
 
-    public function actionFive(){
+    public function actionFive()
+    {
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
+        $rank = Yii::$app->request->get('rank') ? Yii::$app->request->get('rank') : 'one';
         $res = $this->getKjRes($date);
-        $res = $this->oneToSix($res);
-        echo $res; die;
+        $totalStage = count($res);
 
+        $prevNumber = $this->getAppointNumber($res[0]); //上一期前N名
+        $apart = 0;     //相隔期数
+
+        for ($i=1; $i<$totalStage; $i++) {
+            $openRes = $res[$i][$rank];     //开奖结果
+            if(in_array($openRes, $prevNumber)){
+                //在前N名
+                $res[$i]['apart'] = $apart;
+                $apart = 0;
+            }else{
+                //不在
+                $res[$i]['apart'] = 0;
+                $apart += 1;
+            }
+            $prevNumber = $this->getAppointNumber($res[$i]);
+        }
+        return $this->render('appoint',[
+            'data'=>array_reverse($res),
+            'rank' => $rank
+        ]);
     }
 
 }

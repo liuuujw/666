@@ -38,15 +38,27 @@ return [
         '客户服务部',
     ),
     'xyftRank' => [
-        'one' => ['rank' => 1, 'rankDesc'=>'冠军'],
-        'two' => ['rank'=>2, 'rankDesc'=>'亚军'],
-        'three' => ['rank'=>3, 'rankDesc'=>'第三名'],
-        'four'=> ['rank'=>4, 'rankDesc'=>'第四名'],
-        'five'=> ['rank'=>5, 'rankDesc'=>'第五名'],
-        'six'=> ['rank'=>6, 'rankDesc'=>'第六名'],
-        'seven'=> ['rank'=>7, 'rankDesc'=>'第七名'],
-        'eight'=> ['rank'=>8, 'rankDesc'=>'第八名'],
-        'nine'=> ['rank'=>9, 'rankDesc'=>'第九名'],
-        'ten'=> ['rank'=>10, 'rankDesc'=>'第十名']
+        'one' => ['rank' => 1, 'rankDesc' => '冠军'],
+        'two' => ['rank' => 2, 'rankDesc' => '亚军'],
+        'three' => ['rank' => 3, 'rankDesc' => '第三名'],
+        'four' => ['rank' => 4, 'rankDesc' => '第四名'],
+        'five' => ['rank' => 5, 'rankDesc' => '第五名'],
+        'six' => ['rank' => 6, 'rankDesc' => '第六名'],
+        'seven' => ['rank' => 7, 'rankDesc' => '第七名'],
+        'eight' => ['rank' => 8, 'rankDesc' => '第八名'],
+        'nine' => ['rank' => 9, 'rankDesc' => '第九名'],
+        'ten' => ['rank' => 10, 'rankDesc' => '第十名']
+    ],
+    'ftNumberToEng' => [
+        1 => 'one',
+        2 => 'two',
+        3 => 'three',
+        4 => 'four',
+        5 => 'five',
+        6 => 'six',
+        7 => 'seven',
+        8 => 'eight',
+        9 => 'nine',
+        10 => "ten"
     ],
 ];
