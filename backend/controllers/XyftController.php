@@ -223,30 +223,35 @@ class XyftController extends yii\web\Controller
     public function actionGetres()
     {
 
-        $string = file_get_contents('https://www.568kj1.com/ft/xyft.php');
-        $preg = '/<span.*>(.*)<\/span>/isU';
-        $numberPreg = '/<h2.*>(.*([0-9]{11}).*)<\/h2>/isU';
-        preg_match_all($numberPreg, $string, $numberRes);
-        preg_match_all($preg, $string, $res);
-        $number = $numberRes[2][0];
-        $model = new Xyft();
-        if (!$model::find()->where(['stage' => $number])->one()) {
-            $model->stage = $number;
-            $model->one = $res[1][0];
-            $model->two = $res[1][1];
-            $model->three = $res[1][2];
-            $model->four = $res[1][3];
-            $model->five = $res[1][4];
-            $model->six = $res[1][5];
-            $model->seven = $res[1][6];
-            $model->eight = $res[1][7];
-            $model->nine = $res[1][8];
-            $model->ten = $res[1][9];
-            $model->kjtime = date('Y-m-d H:i:s');
-            $model->kjdate = substr($number, 0, 4) . '-' . substr($number, 4, 2) . '-' . substr($number, 6, 2);
-            return $model->save();
+        if(date('H') >= 5 && date('H') < 13){
+            echo 'no time';
+            return false;
         }
 
+        $string = file_get_contents('http://m.52kjpk10.com/xyft/getawardtimes');
+        $arr = json_decode($string, JSON_UNESCAPED_UNICODE);
+
+        if(isset($arr['current']) && $arr['current']){
+            $resArr = explode(',', $arr['current']['awardNumbers']);
+            $stage = date("Ymd") . $arr['current']['periodNumber'];
+            $model = new Xyft();
+            if (!$model::find()->where(['stage' => $stage])->one()) {
+                $model->stage = $stage;
+                $model->one = $resArr[0];
+                $model->two = $resArr[1];
+                $model->three = $resArr[2];
+                $model->four = $resArr[3];
+                $model->five = $resArr[4];
+                $model->six = $resArr[5];
+                $model->seven = $resArr[6];
+                $model->eight = $resArr[7];
+                $model->nine = $resArr[8];
+                $model->ten = $resArr[9];
+                $model->kjtime = date('Y-m-d H:i:s');
+                $model->kjdate = $arr['current']['periodDate'];
+                return $model->save();
+            }
+        }
         return false;
     }
 
