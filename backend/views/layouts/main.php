@@ -39,9 +39,8 @@ AppAsset::register($this);
     $menuItems = [];
     $menuItems = [
         ['label' => '冷热号码', 'url' => ['/xyft']],
-    ];
-    $menuItems[] = [
-        'label' => '二三七十概率', 'url' => ['/xyft/chance'],
+        ['label' => '二三七十概率', 'url' => ['/xyft/chance']],
+        ['label' => '一二四七九十','url' => ['/xyft/sixnumber']],
     ];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
