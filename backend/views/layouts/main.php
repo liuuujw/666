@@ -41,6 +41,7 @@ AppAsset::register($this);
         ['label' => '冷热号码', 'url' => ['/xyft']],
         ['label' => '二三七十概率', 'url' => ['/xyft/chance']],
         ['label' => '一二四七九十','url' => ['/xyft/sixnumber']],
+        ['label' => '三五六八','url' => ['/xyft/sixnumber?type=4']],
         ['label'=>'1-6名', 'url'=> ['/xyft/onetosix']]
     ];
     echo Nav::widget([

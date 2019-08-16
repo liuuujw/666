@@ -53,11 +53,11 @@ class XyftController extends yii\web\Controller
             /*if (count($chanceArray) == 10) {
                 //出齐10个号码，统计冷热数量*/
 
-                if (count($chanceArray) >= 5) {
+                if (count($chanceArray) >= 10) {
                     //出齐5个号码，统计冷热数量
 
                     $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
-                    if (count($prevTenNumberChance) != 0) {
+                    /*if (count($prevTenNumberChance) != 0) {
                         $keyArr = array_keys($prevTenNumberChance);
                         $numberRank = array_keys($keyArr, $result['kjRes']);
 
@@ -85,7 +85,7 @@ class XyftController extends yii\web\Controller
                             $isBegin = true;
                         }
                         $prevTenNumberChance = $chanceArray;
-                    }
+                    }*/
                     $result['chance'] = $chanceArray;
                     $returnRes[] = $result;
                 }
@@ -612,7 +612,7 @@ class XyftController extends yii\web\Controller
         return $rank;
     }
 
-    function getAppointNumber($res, $start = 1, $end = 5)
+    function getAppointNumber($res, $start = 1, $end = 6)
     {
         if (is_array($res) && $res != []) {
             $returnRes = [];
@@ -629,8 +629,9 @@ class XyftController extends yii\web\Controller
     {
 
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : "";
+        $type = Yii::$app->request->get('type') ? Yii::$app->request->get('type') : 6;
         $res = $this->getKjRes($date);
-        $resourceNum = [1, 2, 4, 7, 9, 10];
+        $resourceNum = $type == 6 ? [1, 2, 4, 7, 9, 10] : [3,5,6,8];
 
         //相隔
         $firstPartition = 0;

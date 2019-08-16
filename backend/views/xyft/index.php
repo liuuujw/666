@@ -43,18 +43,18 @@ $this->registerCssFile('/css/chance.css');
             ?>
             <div class="row">
                 <div class="col-md-12" style="margin-bottom: 10px;">
-                    <p>5个号码出齐期数：<?= $tenNumberStage ?></p>
+                    <p>10个号码出齐期数：<?= $tenNumberStage ?></p>
 
-                    <div>
+                    <!--<div>
                         <div class="stages-show-div">
-                            热门号码总数： <?= $hotNumberCount ?> (最多连<?= $maxHotLian; ?>)  <i class="glyphicon glyphicon-chevron-down"></i>
-                            <p class="stages hide"><?= implode($hotStage, ',') ?> </p>
+                            热门号码总数： <?/*= $hotNumberCount */?> (最多连<?/*= $maxHotLian; */?>)  <i class="glyphicon glyphicon-chevron-down"></i>
+                            <p class="stages hide"><?/*= implode($hotStage, ',') */?> </p>
                         </div>
                         <div class="stages-show-div">
-                            冷门号码总数： <?= $coolNumberCount ?> (最多连<?= $maxCoolLian; ?>)  <i class="glyphicon glyphicon-chevron-down"></i>
-                            <p class="stages hide"><?= implode($coolStage, ',') ?> </p>
+                            冷门号码总数： <?/*= $coolNumberCount */?> (最多连<?/*= $maxCoolLian; */?>)  <i class="glyphicon glyphicon-chevron-down"></i>
+                            <p class="stages hide"><?/*= implode($coolStage, ',') */?> </p>
                         </div>
-                    </div>
+                    </div>-->
 
                 </div>
             </div>
