@@ -232,8 +232,14 @@ class XyftController extends yii\web\Controller
         $arr = json_decode($string, JSON_UNESCAPED_UNICODE);
 
         if(isset($arr['current']) && $arr['current']){
+            if($arr['current']['periodNumber'] < 10){
+                $stage = date("Ymd") . '00' . $arr['current']['periodNumber'];
+            }else if($arr['current']['periodNumber'] >= 10 && $arr['current']['periodNumber'] < 100){
+                $stage = date("Ymd") . '0' . $arr['current']['periodNumber'];
+            }else{
+                $stage = date("Ymd") . $arr['current']['periodNumber'];
+            }
             $resArr = explode(',', $arr['current']['awardNumbers']);
-            $stage = date("Ymd") . $arr['current']['periodNumber'];
             $model = new Xyft();
             if (!$model::find()->where(['stage' => $stage])->one()) {
                 $model->stage = $stage;
@@ -493,7 +499,7 @@ class XyftController extends yii\web\Controller
             $sixNumberArr[] = $data['three'];
             $sixNumberArr[] = $data['four'];
             $sixNumberArr[] = $data['five'];
-//            $sixNumberArr[] = $data['six'];
+            $sixNumberArr[] = $data['six'];
 
             return $sixNumberArr;
         }
@@ -663,9 +669,10 @@ class XyftController extends yii\web\Controller
     }
 
 
-    public function actionFive()
+    public function actionOnetosix()
     {
-        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : '';
+        $date = date('H') < 13 ? date('Y-m-d', strtotime('-1 days')) : date("Y-m-d");
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : $date;
         $rank = Yii::$app->request->get('rank') ? Yii::$app->request->get('rank') : 'one';
         $res = $this->getKjRes($date);
 
@@ -674,27 +681,27 @@ class XyftController extends yii\web\Controller
         $prevNumber = $this->getAppointNumber($res[0]); //上一期前N名
         $apart = 0;     //相隔期数
 
+        $returnRes = [];
+
         for ($i = 1; $i < $totalStage; $i++) {
             $openRes = $res[$i][$rank];     //开奖结果
             if (in_array($openRes, $prevNumber)) {
                 //在前N名
                 $res[$i]['apart'] = $apart;
                 $apart = 0;
-            } else {
-                //不在
-                $res[$i]['apart'] = 0;
+                $returnRes[] = $res[$i];
+                $prevNumber = $this->getAppointNumber($res[$i]);
+            }else{
                 $apart += 1;
             }
-            $prevNumber = $this->getAppointNumber($res[$i]);
-        }
-        return $this->render('appoint', [
-            'data' => array_reverse($res),
-            'rank' => $rank
-        ]);
 
-        $res = $this->oneToSix($res);
-        echo $res;
-        die;
+        }
+
+        return $this->render('appoint', [
+            'data' => array_reverse($returnRes),
+            'rank' => $rank,
+            'date' => $date
+        ]);
 
     }
 
