@@ -53,42 +53,42 @@ class XyftController extends yii\web\Controller
             /*if (count($chanceArray) == 10) {
                 //出齐10个号码，统计冷热数量*/
 
-                if (count($chanceArray) >= 10) {
-                    //出齐5个号码，统计冷热数量
+            if (count($chanceArray) >= 1) {
+                //出齐5个号码，统计冷热数量
 
-                    $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
-                    /*if (count($prevTenNumberChance) != 0) {
-                        $keyArr = array_keys($prevTenNumberChance);
-                        $numberRank = array_keys($keyArr, $result['kjRes']);
+                $tenNumberStage = ($tenNumberStage == '') ? $result['stage'] : $tenNumberStage;
+                /*if (count($prevTenNumberChance) != 0) {
+                    $keyArr = array_keys($prevTenNumberChance);
+                    $numberRank = array_keys($keyArr, $result['kjRes']);
 
-                        if ($numberRank[0] < 5 && $isBegin == true) {
+                    if ($numberRank[0] < 5 && $isBegin == true) {
+                        //热门号码
+                        $hotNumberCount += 1;
+                        $hotStage[] = $result['stage'];
+
+                        if (isset($numberRank[0]) && $numberRank[0] < 5 && $isBegin == true) {
                             //热门号码
                             $hotNumberCount += 1;
                             $hotStage[] = $result['stage'];
+                            $hotLian += 1;
+                            $maxHotLian = $hotLian > $maxHotLian ? $hotLian : $maxHotLian;
+                            $coolLian = 0;
 
-                            if (isset($numberRank[0]) && $numberRank[0] < 5 && $isBegin == true) {
-                                //热门号码
-                                $hotNumberCount += 1;
-                                $hotStage[] = $result['stage'];
-                                $hotLian += 1;
-                                $maxHotLian = $hotLian > $maxHotLian ? $hotLian : $maxHotLian;
-                                $coolLian = 0;
-
-                            } else {
-                                //冷门号码
-                                $coolNumberCount += 1;
-                                $coolStage[] = $result['stage'];
-                                $coolLian += 1;
-                                $maxCoolLian = $coolLian > $maxCoolLian ? $coolLian : $maxCoolLian;
-                                $hotLian = 0;
-                            }
-                            $isBegin = true;
+                        } else {
+                            //冷门号码
+                            $coolNumberCount += 1;
+                            $coolStage[] = $result['stage'];
+                            $coolLian += 1;
+                            $maxCoolLian = $coolLian > $maxCoolLian ? $coolLian : $maxCoolLian;
+                            $hotLian = 0;
                         }
-                        $prevTenNumberChance = $chanceArray;
-                    }*/
-                    $result['chance'] = $chanceArray;
-                    $returnRes[] = $result;
-                }
+                        $isBegin = true;
+                    }
+                    $prevTenNumberChance = $chanceArray;
+                }*/
+                $result['chance'] = $chanceArray;
+                $returnRes[] = $result;
+            }
 //            }
         }
         return $this->render('index', [
@@ -223,7 +223,7 @@ class XyftController extends yii\web\Controller
     public function actionGetres()
     {
 
-        if(date('H') >= 5 && date('H') < 13){
+        if (date('H') >= 5 && date('H') < 13) {
             echo 'no time';
             return false;
         }
@@ -231,12 +231,12 @@ class XyftController extends yii\web\Controller
         $string = file_get_contents('http://m.52kjpk10.com/xyft/getawardtimes');
         $arr = json_decode($string, JSON_UNESCAPED_UNICODE);
 
-        if(isset($arr['current']) && $arr['current']){
-            if($arr['current']['periodNumber'] < 10){
+        if (isset($arr['current']) && $arr['current']) {
+            if ($arr['current']['periodNumber'] < 10) {
                 $stage = date("Ymd") . '00' . $arr['current']['periodNumber'];
-            }else if($arr['current']['periodNumber'] >= 10 && $arr['current']['periodNumber'] < 100){
+            } else if ($arr['current']['periodNumber'] >= 10 && $arr['current']['periodNumber'] < 100) {
                 $stage = date("Ymd") . '0' . $arr['current']['periodNumber'];
-            }else{
+            } else {
                 $stage = date("Ymd") . $arr['current']['periodNumber'];
             }
             $resArr = explode(',', $arr['current']['awardNumbers']);
@@ -631,7 +631,7 @@ class XyftController extends yii\web\Controller
         $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : "";
         $type = Yii::$app->request->get('type') ? Yii::$app->request->get('type') : 6;
         $res = $this->getKjRes($date);
-        $resourceNum = $type == 6 ? [1, 2, 4, 7, 9, 10] : [3,5,6,8];
+        $resourceNum = $type == 6 ? [1, 2, 4, 7, 9, 10] : [3, 5, 6, 8];
 
         //相隔
         $firstPartition = 0;
@@ -680,9 +680,10 @@ class XyftController extends yii\web\Controller
         $totalStage = count($res);
 
         $prevNumber = $this->getAppointNumber($res[0]); //上一期前N名
-        $apart = 0;     //相隔期数
 
-        $returnRes = [];
+        $first = $res[0];
+        $first['apart'] = $apart = 0;   //相隔期数
+        $returnRes[] = $first;
 
         for ($i = 1; $i < $totalStage; $i++) {
             $openRes = $res[$i][$rank];     //开奖结果
@@ -692,18 +693,58 @@ class XyftController extends yii\web\Controller
                 $apart = 0;
                 $returnRes[] = $res[$i];
                 $prevNumber = $this->getAppointNumber($res[$i]);
-            }else{
+            } else {
                 $apart += 1;
             }
 
         }
 
         return $this->render('appoint', [
-            'data' => array_reverse($returnRes),
+            'data' => $returnRes,
             'rank' => $rank,
             'date' => $date
         ]);
 
+    }
+
+    public function actionOnetosixgold()
+    {
+        $date = date('H') < 13 ? date('Y-m-d', strtotime('-1 days')) : date("Y-m-d");
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : $date;
+        $res = $this->getKjRes($date);
+        if ($res != []) {
+
+            $count = count($res);
+            $first = [
+                'stage' => $res[0]['stage'],
+                'one' => $res[0]['one'],
+                'apart' => 0,
+            ];
+
+            $returnRes[] = $first;
+            $apart = 0;
+            $one = $res[0]['one'];
+            for ($i = 1; $i < $count; $i++) {
+                $prevNumber = $this->getAppointNumber($res[$i - 1]); //上一期
+                if (in_array($one, $prevNumber)) {
+                    $one = $res[$i]['one'];
+                    $oneStage['stage'] = $res[$i]['stage'];
+                    $oneStage['one'] = $one;
+                    $oneStage['apart'] = $apart;
+                    $returnRes[] = $oneStage;
+                    $apart = 0;
+                } else {
+                    $apart += 1;
+                }
+
+            }
+
+            return $this->render('appoint',[
+                'data' => $returnRes,
+                'date' => $date
+            ]);
+
+        }
     }
 
 }

@@ -16,45 +16,34 @@ $this->registerCssFile('/css/chance.css');
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>期数</td>
+                    <td>开奖</td>
+                    <td>相隔期数</td>
+                </tr>
+                </thead>
+                <tbody>
                 <?php
-                if (isset($data) && $data) {
-                    $dataCount = count($data);
-                    foreach ($data as $key => $val) {
-                        ?>
-                        <tr>
-                            <?php
-                            foreach($val as $k=>$v){
-                                if($k =='stage' || $k=='apart') continue;
-                                ?>
+                    if(isset($data) && $data){
+                        foreach($data as $key => $val){
+                            ?>
+                            <tr>
+                                <td><?= $key+1 ?></td>
+                                <td><?= substr($val['stage'],8) ?></td>
                                 <td>
                                     <div>
-                                        <span class="number num_<?= $v ?>"><?= $v ?></span>
+                                        <span class="number num_<?= $val['one'] ?>"><?= $val['one'] ?></span>
                                     </div>
                                 </td>
-                                <?php
-                            }
-                            ?>
-                        </tr>
-                        <tr>
-                            <td>
-                                <?= $dataCount - $key ?>
-                            </td>
-                            <td colspan="4">
-                                第<?= substr($val['stage'],8) ?>期
-                            </td>
-                            <td>
-                                <div>
-                                    <span class="number num_<?= $val[$rank] ?>"><?= $val[$rank] ?></span>
-                                </div>
-                            </td>
-                            <td colspan="3">
-                                <?= isset($val['apart']) ? "相隔 " . $val['apart'] . "期" : "" ?>
-                            </td>
-                        </tr>
-                        <?php
+                                <td><?= $val['apart'] ?></td>
+                            </tr>
+                <?php
+                        }
                     }
-                }
                 ?>
+                </tbody>
             </table>
         </div>
     </div>
