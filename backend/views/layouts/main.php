@@ -42,6 +42,7 @@ AppAsset::register($this);
         ['label' => '一二四七九十','url' => ['/xyft/sixnumber']],
         ['label' => '三五六八','url' => ['/xyft/sixnumber?type=4']],
         ['label'=>'冠军买1-6名', 'url'=> ['/xyft/onetosix']],
+        ['label'=>'冠军买上期1-6名', 'url'=> ['/xyft/prev16']],
 //        ['label'=>'1-6名买冠军', 'url'=> ['/xyft/onetosixgold']]
     ];
     echo Nav::widget([

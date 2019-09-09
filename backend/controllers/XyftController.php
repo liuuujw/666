@@ -747,4 +747,42 @@ class XyftController extends yii\web\Controller
         }
     }
 
+    public function actionPrev16()
+    {
+        $date = date('H') < 13 ? date('Y-m-d', strtotime('-1 days')) : date("Y-m-d");
+        $date = Yii::$app->request->get('date') ? Yii::$app->request->get('date') : $date;
+        $rank = Yii::$app->request->get('rank') ? Yii::$app->request->get('rank') : 'one';
+        $res = $this->getKjRes($date);
+        $title = "冠军买上期1-6名";
+        $totalStage = count($res);
+
+        $prevNumber = $this->getAppointNumber($res[0]); //上一期前N名
+
+        $first = $res[0];
+        $first['apart'] = $apart = 0;   //相隔期数
+        $returnRes[] = $first;
+
+        for ($i = 1; $i < $totalStage; $i++) {
+            $openRes = $res[$i][$rank];     //开奖结果
+            if (in_array($openRes, $prevNumber)) {
+                //在前N名
+                $res[$i]['apart'] = $apart;
+                $apart = 0;
+                $returnRes[] = $res[$i];
+            } else {
+                $apart += 1;
+            }
+            $prevNumber = $this->getAppointNumber($res[$i]);
+
+        }
+
+        return $this->render('appoint', [
+            'data' => $returnRes,
+            'rank' => $rank,
+            'date' => $date,
+            'title' => 'title',
+        ]);
+
+    }
+
 }
