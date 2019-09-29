@@ -33,5 +33,5 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
-
+/backend/assets
 /frontend/web/video/video-show.mp4
